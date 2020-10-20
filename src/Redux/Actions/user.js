@@ -1,16 +1,27 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { firebase, Auth, database } from "../../Setup";
+import { USER } from './ActionTypes'
+import { firebase, Auth, database } from "../../../Setup";
+export const setUsername = username => {
+    console.log(username, "action redux")
+    return (dispatch, getState) => {
+        return new Promise((resolve, reject) => {
+            dispatch({
+                type: USER.SET_USERNAME,
+                payload: username
+            });
+            resolve();
+        });
+    };
+};
 export const signUpUser = (email, pasword, name) => {
     return new Promise(function (resolve, reject) {
-        console.log("email:", email, "pass:", pasword, "name", name)
 
         Auth().createUserWithEmailAndPassword(email, pasword, name).then((result) => {
-            resolve("sign up succesfully");
+            // console.log(result,"create fun")
+            resolve(result);
             return result.user.updateProfile({
                 displayName: name
             })
-
+            
 
         }).catch((err) => {
             console.log("ERROR");
@@ -19,10 +30,10 @@ export const signUpUser = (email, pasword, name) => {
 
     })
 }
+
 export const submitUserObj = (Id, Name, Email, Cnic) => {
     return new Promise(function (resolve, reject) {
-        console.log("Id", Id, "Name:", Name, "Email", Email, "Cnic:", Cnic)
-
+      
         let key;
         if (Id != null) {  //for exiting user edit
             key = Id
@@ -38,8 +49,7 @@ export const submitUserObj = (Id, Name, Email, Cnic) => {
 
         }
 
-        console.log("update key", key, "onk", dataToSave)
-
+       
         database().ref('users/' + key).update(dataToSave).then(snapshot => {
             resolve(snapshot);
         }).catch(err => reject(err))

@@ -51,7 +51,7 @@ export default class WelcomeScreen extends Component {
                 width: wp('100%')
             },
             text: {
-                color: '#ffffff',
+                color: '#fd5531',
                 fontSize: hp('4%'),
                 fontWeight: 'bold',
 
@@ -127,7 +127,7 @@ export default class WelcomeScreen extends Component {
                         <Button onPress={() => {
                             this.setState({ view: true, urdu: true, english: false })
                         }} style={styles.btnU} bordered block  >
-                            <Text style={{ color: this.state.urdu ? "#fd5531" : '#ffffff', fontWeight: 'bold', fontSize: hp(3.1) }}>Vandor</Text>
+                            <Text style={{ color: this.state.urdu ? "#fd5531" : '#ffffff', fontWeight: 'bold', fontSize: hp(3.1) }}>Vendor</Text>
                         </Button>
                     </View>
                     <View style={styles.icon}>

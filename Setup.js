@@ -4,6 +4,9 @@ import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database'
 import App from './App'
+import { Provider } from 'react-redux'
+import { store, persistor } from './src/Store'
+import { PersistGate } from 'redux-persist/integration/react'
 var firebaseConfig = {
     apiKey: "AIzaSyDHwq5ST9ojoFU-7QdB_Hj6kcKFh8uw6Sg",
     authDomain: "sawari-c4de3.firebaseapp.com",
@@ -23,6 +26,10 @@ export { firebase, Auth, database };
 
 export default function Setup() {
     return (
-        <App/>
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>
+                <App />
+            </PersistGate>
+        </Provider>
     )
 }

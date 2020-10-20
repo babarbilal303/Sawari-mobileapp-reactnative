@@ -5,33 +5,41 @@ import {
     removeOrientationListener as rol
 } from 'react-native-responsive-screen';
 import { Container, Header, Content, Form, Item, Input, Label, Button } from 'native-base';
-
+import { setUsername, signInUser } from '../../Redux/Actions'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { signInUser } from '../../Api Services/ApiServices'
-import { Auth, database } from '../../../Setup'
-
 import { useNavigation } from '@react-navigation/native';
-
-export default function LoginScreen(props) {
+import { connect, useSelector, useDispatch } from "react-redux";
+import styles from './styles'
+function LoginScreen(props) {
     const navigation = useNavigation();
 
 
     const [state, setstate] = useState({
-
         emailAddress: '',
         password: ''
     })
-    const [User, setUser] = useState();
+
+    const username = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     const signin = () => {
+
         signInUser(state.emailAddress, state.password).then((data) => {
-            alert(data)
+            alert("sign in bro")
+            const userObj = {
+                id: data.user.uid,
+                name: data.user.displayName,
+                email: data.user.email
+            }
+            dispatch(setUsername(userObj));
         }).catch((error) => {
             console.log("ERROR");
             alert(error)
         })
+
     }
-    console.log(User, "user")
+
+    console.log(username, "redux data")
     return (
         <View style={styles.container}>
             <View style={styles.disp}>
@@ -43,26 +51,27 @@ export default function LoginScreen(props) {
                 <View style={styles.textView}>
                     <Text style={{ fontSize: hp(4.8), fontWeight: 'bold', textAlign: 'center', color: '#fa472f' }}>Login </Text>
 
-
                 </View>
                 <Form style={{ justifyContent: 'center', alignItems: 'center' }}>
 
                     <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(80) }}>
+
                         <Label>Email:</Label>
                         <Input
                             style={{ color: '#fa472f', fontSize: 20 }}
                             value={state.emailAddress}
                             onChangeText={(email) => { setstate({ ...state, emailAddress: email }) }}
+                            autoCapitalize='none'
                         />
                     </Item>
 
                     <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(80) }}>
                         <Label>Password:</Label>
-                        <Input secureTextEntry
+                        <Input secureTextEntry keyboardType={'number-pad'}
                             style={{ color: '#fa472f', fontSize: 20 }}
                             value={state.password}
                             onChangeText={(pass) => setstate({ ...state, password: pass })}
-
+                            autoCapitalize='none'
                         />
                     </Item>
                     <View style={styles.btnView}>
@@ -70,63 +79,24 @@ export default function LoginScreen(props) {
                             <Icon name="check-circle" size={hp(6)} style={{ color: 'white' }} />
                             <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Next</Text>
                         </Button>
-
                     </View>
                 </Form>
 
-
-
-
-
             </View>
         </View>
-
-
-
     )
-
 }
-const styles = StyleSheet.create({
 
-    container: {
-        flex: 1,
-        backgroundColor: '#242f35'
-    },
-    disp: {
+// const mapStateToProps = (state) => {
+//     return {
+//         user: state.user,
+//     };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         changeUser: (name) => dispatch(setUsername(name))
+//     }
+// }
 
-        height: hp(100),
-        width: wp(100),
-    },
-
-    navigation: {
-        width: wp(100),
-        height: hp(15),  //
-        padding: hp(3.5)
-
-    },
-    textView: {
-        width: wp(100),
-        height: hp(10),  //
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-    inputView: {
-        width: wp(100),
-        height: hp(15), //
-        // paddingVertical: hp(8),
-        // paddingHorizontal: hp(2)
-
-    },
-    btnView: {
-        width: wp(100),
-        height: hp(50),   //
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingVertical: hp(7),
-        paddingRight: wp(10)
-
-    }
-
-
-})
+// export default connect(mapStateToProps)(LoginScreen);
+export default LoginScreen;
