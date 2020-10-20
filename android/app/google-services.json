@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "299891495708",
+    "firebase_url": "https://sawari-c4de3.firebaseio.com",
+    "project_id": "sawari-c4de3",
+    "storage_bucket": "sawari-c4de3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299891495708:android:42aac5d8acd9c2fbaba0d9",
+        "android_client_info": {
+          "package_name": "com.sawari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299891495708-tpd75078siovoehe07v6cugkqff4pn16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU-0bwQoOB-TgQrKkjofd8D5hUQ3NtbvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299891495708-tpd75078siovoehe07v6cugkqff4pn16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
