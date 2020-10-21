@@ -1,6 +1,1 @@
-![picture](src/Assets/img/logo_black.png) 
-<ul>
-<li>#**RENTA CAR APP**# </li>
-<li>THIS APPLICATION ALLOWS USERS TO FIND AND RENT A CAR.THIS  APP FOR BOTH USERS AND VENDORS.</li>
-</ul>
-
+![picture](src/Assets/img/logo_black.png)  #**RENTA CAR APP**#  THIS APPLICATION US FOR TO FIND THE RENT-CAR AND YOU CAN ALSO GIVE ON RENT YOUR CAR TO SOMEONE.
