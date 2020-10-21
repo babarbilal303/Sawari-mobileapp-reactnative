@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
+import { Image, Text, View, StyleSheet, TouchableOpacity, Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
 import {
     widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as lor,
     removeOrientationListener as rol
@@ -10,34 +10,45 @@ import { signUpUser, submitUserObj, setUsername } from '../../Redux/Actions'
 import { Auth } from '../../../Setup'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import {ThemeColor} from '../../Constant'
 export default function SignUpScreen(props) {
+
     const navigation = useNavigation();
     const [state, setstate] = useState({
         name: '',
         emailAddress: '',
+        phoneNumber: '',
         cnic: '',
         password: '',
 
     })
+
     const [User, setUser] = useState();
     const dispatch = useDispatch();
+
+
+
     const signUP = () => {
         setstate({ ...state, id: User.uid })
-        const { emailAddress, password, name, cnic } = state;
+        const { emailAddress, password, name, cnic, phoneNumber } = state;
         // alert(JSON.stringify(state))
-        if (emailAddress.length && password.length && name.length && cnic.length) {
-            signUpUser(emailAddress, password, name, cnic).then((data) => {
+        if (emailAddress.length && password.length && name.length && cnic.length && phoneNumber.length) {
+            signUpUser(emailAddress, password, name, cnic, phoneNumber).then((data) => {
                 const userObj = {
                     id: data.user.uid,
                     name: name,
-                    email: emailAddress
+                    email: emailAddress,
+                    cnic: cnic,
+                    phoneNumber: phoneNumber
 
                 }
                 dispatch(setUsername(userObj));
-                submitUserObj(data.user.uid, name, emailAddress, cnic).then(() => {
+
+                submitUserObj(data.user.uid, name, emailAddress, cnic, phoneNumber).then(() => {
                     console.log("USER IS SAVED IN DB")
                 })
-                navigation.navigate('map');
+
+                navigation.navigate('Drawer');
             }).catch((error) => {
                 console.log("ERROR");
                 alert(error)
@@ -62,13 +73,12 @@ export default function SignUpScreen(props) {
             <View style={styles.disp}>
                 <View style={styles.navigation} >
                     <TouchableOpacity onPress={() => { props.navigation.goBack() }} >
-                        <Icon name="chevron-left" size={hp(4)} color="#ffffff" />
+                        <Icon name="chevron-left" size={hp(4)} color={ThemeColor.mainThmemColor} />
                     </TouchableOpacity>
 
                 </View>
-                <View style={styles.textView}>
-                    <Text style={{ fontSize: hp(4.8), fontWeight: 'bold', color: '#fa472f' }}>SIGN UP </Text>
-
+                <View style={{  height: hp(10),alignItems:'center' }} >
+                    <Image source={require('../../Assets/img/logo_black.png')} style={{ width: '40%', height: "70%" }} />
                 </View>
                 <View style={{ height: hp(15) }} />
                 <KeyboardAvoidingView
@@ -77,47 +87,62 @@ export default function SignUpScreen(props) {
                 >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <Form style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10 }}>
-                                <Label>Name</Label>
+                            <Item rounded style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10,marginBottom:4 }}>
+
                                 <Input autoFocus={true}
                                     style={{ color: '#fa472f', fontSize: 20 }}
                                     value={state.name}
                                     onChangeText={(name) => { setstate({ ...state, name: name }) }}
-                                    autoCapitalize = 'none'
-                             />
+                                    autoCapitalize='none'
+                                    placeholder="Username"
+                                />
                             </Item>
-                            <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10 }}>
-                                <Label>Email</Label>
+                            <Item rounded style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10,marginBottom:4 }}>
+
                                 <Input
                                     style={{ color: '#fa472f', fontSize: 20 }}
                                     value={state.emailAddress}
                                     onChangeText={(email) => { setstate({ ...state, emailAddress: email }) }}
-                                    autoCapitalize = 'none'
+                                    autoCapitalize='none'
+                                    placeholder="Email"
                                 />
 
                             </Item>
-                            <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10 }}>
-                                <Label>Cnic no</Label>
+                            <Item rounded style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10,marginBottom:4 }}>
+
+                                <Input keyboardType="number-pad"
+                                    style={{ color: '#fa472f', fontSize: 20 }}
+                                    value={state.phoneNumber}
+                                    onChangeText={(phoneNumber) => { setstate({ ...state, phoneNumber: phoneNumber }) }}
+                                    autoCapitalize='none'
+                                    placeholder="Phone no"
+
+                                />
+                            </Item>
+                            <Item rounded style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10,marginBottom:4 }}>
+
                                 <Input keyboardType="number-pad"
                                     style={{ color: '#fa472f', fontSize: 20 }}
                                     value={state.cnic}
                                     onChangeText={(cnic) => { setstate({ ...state, cnic: cnic }) }}
-                                    autoCapitalize = 'none'
-                               />
+                                    autoCapitalize='none'
+                                    placeholder="Cnic no"
+                                />
                             </Item>
-                            <Item floatingLabel style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10 }}>
-                                <Label>Password</Label>
+                            <Item rounded style={{ backgroundColor: '#ffffff', width: wp(90), borderRadius: 10 }}>
+
                                 <Input secureTextEntry keyboardType="number-pad"
                                     style={{ color: '#fa472f', fontSize: 20 }}
                                     value={state.password}
                                     onChangeText={(pass) => setstate({ ...state, password: pass })}
-                                    autoCapitalize = 'none'
+                                    autoCapitalize='none'
+                                    placeholder="Password"
                                 />
                             </Item>
                             <View style={styles.btnView}>
-                                <TouchableOpacity onPress={() => signUP()} block style={{ width: '35%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: 'red', borderColor: 'white' }}>
+                                <TouchableOpacity onPress={() => signUP()} block style={{ width: '65%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2,backgroundColor:ThemeColor.mainThmemColor ,borderColor: 'white' }}>
                                     {/* <Icon name="check-circle" size={hp(3)} style={{ color: 'white' }} /> */}
-                                    <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Next</Text>
+                                    <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Signup</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -143,7 +168,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#242f35'
+        // backgroundColor: '#242f35'
     },
     disp: {
 
@@ -153,7 +178,7 @@ const styles = StyleSheet.create({
 
     navigation: {
         width: wp(100),
-        height: hp(15),  //
+        height: hp(10),  //
         padding: hp(3.5)
 
     },
@@ -177,7 +202,7 @@ const styles = StyleSheet.create({
         height: hp(50),   //
         flexDirection: 'row',
         justifyContent: 'center',
-        paddingVertical: hp(7),
+        paddingVertical: hp(5),
         // paddingRight: wp(10),
 
 

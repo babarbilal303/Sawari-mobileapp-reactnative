@@ -13,9 +13,6 @@ import {
 
 export default GetStartedScreen = (props) => {
 
-
-
-
     return (
         <View style={styles.container}>
 

@@ -4,7 +4,7 @@
     <!-- <color name="splashscreen_bg">#fd4930</color> -->
     <color name="splashscreen_bg">#ffffff</color>
 
-    <color name="primary_dark">#000000</color>
+    <color name="primary_dark">#fd4930</color>
         
 <color name="status_bar_color">#fd4930</color>
 

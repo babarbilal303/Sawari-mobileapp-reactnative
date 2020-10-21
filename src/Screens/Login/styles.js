@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 import {
     widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as lor,
     removeOrientationListener as rol
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#242f35'
+        // backgroundColor: '#242f35'
     },
     disp: {
 
@@ -21,7 +21,10 @@ const styles = StyleSheet.create({
         padding: hp(3.5)
 
     },
-    textView: {
+    form: {
+        height: hp(20)
+    },
+    LogoView: {
         width: wp(100),
         height: hp(10),  //
         justifyContent: 'center',
@@ -37,12 +40,16 @@ const styles = StyleSheet.create({
     },
     btnView: {
         width: wp(100),
-        height: hp(50),   //
+        height: hp(10),   //
         flexDirection: 'row',
-        justifyContent: 'flex-end',
-        paddingVertical: hp(7),
-        paddingRight: wp(10)
+        justifyContent: 'center',
+        alignItems: 'center',
 
+
+    },
+    RigisterText: {
+        height: hp(50),
+        alignItems:'center'
     }
 
 

@@ -21,7 +21,7 @@ export const signUpUser = (email, pasword, name) => {
             return result.user.updateProfile({
                 displayName: name
             })
-            
+
 
         }).catch((err) => {
             console.log("ERROR");
@@ -31,9 +31,9 @@ export const signUpUser = (email, pasword, name) => {
     })
 }
 
-export const submitUserObj = (Id, Name, Email, Cnic) => {
+export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber) => {
     return new Promise(function (resolve, reject) {
-      
+
         let key;
         if (Id != null) {  //for exiting user edit
             key = Id
@@ -45,11 +45,12 @@ export const submitUserObj = (Id, Name, Email, Cnic) => {
             Id: key,
             Name: Name,
             Email: Email,
-            Cnic: Cnic
+            Cnic: Cnic,
+            PhoneNuber: PhoneNuber
 
         }
 
-       
+
         database().ref('users/' + key).update(dataToSave).then(snapshot => {
             resolve(snapshot);
         }).catch(err => reject(err))
@@ -61,7 +62,7 @@ export const signInUser = (email, pasword) => {
 
         Auth().signInWithEmailAndPassword(email, pasword).then((data) => {
             resolve(data);
-            console.log(data,"use login");
+            console.log(data, "use login");
         }).catch((err) => {
             console.log("ERROR");
             reject(err)
