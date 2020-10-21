@@ -1,2 +1,3 @@
-![picture](src/Assets/img/logo_black.png)
-#RENTA CAR APP
+![picture](src/Assets/img/logo_black.png) <br />
+#RENTA CAR APP  <br />
+THIS APPLICATION ALLOWS USERS TO FINDOUT CAR FOR RENT.THIS <br /> APP FOR BOTH USERS AND VENDORS
