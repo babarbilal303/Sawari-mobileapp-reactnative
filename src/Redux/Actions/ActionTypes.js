@@ -4,4 +4,9 @@ export const USER = {
     REMOVE_USERNAME: "REMOVE_USERNAME",
     GET_USER: "GET_USER",
     UPDATE_USER: "UPDATE_USER",
+    SET_ROLE:"SET_ROLE"
+};
+export const CARMODAL = {
+    CAR_MODAL_VISIABLE: "CAR_MODAL_VISIABLE",
+
 };

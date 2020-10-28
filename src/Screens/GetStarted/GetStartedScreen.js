@@ -11,7 +11,9 @@ import {
 } from 'react-native-responsive-screen';
 
 
-export default GetStartedScreen = (props) => {
+export default GetStartedScreen = ({ route, navigation }) => {
+
+
 
     return (
         <View style={styles.container}>
@@ -20,7 +22,7 @@ export default GetStartedScreen = (props) => {
             <View style={styles.disp}>
 
                 <View style={styles.navigation}>
-                    <TouchableOpacity onPress={() => { props.navigation.goBack() }}>
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
                         <Icon name="chevron-left" size={hp(4)} color="white" />
                     </TouchableOpacity>
 
@@ -38,11 +40,13 @@ export default GetStartedScreen = (props) => {
                     <View style={{ height: hp(10) }} />
                     <View>
 
-                        <TouchableOpacity style={styles.btn3} onPress={() => props.navigation.navigate('signUpScreen')}>
+                        <TouchableOpacity style={styles.btn3} onPress={() => navigation.navigate('signUpScreen', {
+                            Role: route.params.Role
+                        })}>
                             <Text style={{ ...styles.textbtn, color: '#ffffff' }}>Signup </Text>
                             <IconI name='trail-sign-outline' size={hp(4)} color="white" />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btn2} onPress={() => props.navigation.navigate('loginScreen')}>
+                        <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('loginScreen')}>
                             <Text style={{ ...styles.textbtn, color: '#000000' }}>Login </Text>
                             <Iconf name='login' size={hp(4)} color="#242f35" />
 

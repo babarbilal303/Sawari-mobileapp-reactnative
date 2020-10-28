@@ -33,7 +33,7 @@ function LoginScreen(props) {
                 email: data.user.email
             }
             dispatch(setUsername(userObj));
-            navigation.navigate('Drawer');
+             navigation.navigate('map');
         }).catch((error) => {
             console.log("ERROR");
             alert(error)
@@ -58,7 +58,7 @@ function LoginScreen(props) {
 
                     <Form style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-                        <Item rounded style={{ backgroundColor: '#ffffff', width: wp(80) }}>
+                        <Item style={{ width: wp(80), marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
 
 
                             <Input
@@ -70,7 +70,7 @@ function LoginScreen(props) {
                             />
                         </Item>
                         <View style={{ height: hp(2) }} />
-                        <Item rounded style={{ backgroundColor: '#ffffff', width: wp(80) }}>
+                        <Item style={{ width: wp(80), marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
 
                             <Input secureTextEntry keyboardType={'number-pad'}
                                 style={{ color: '#fa472f', fontSize: 20 }}
@@ -84,7 +84,7 @@ function LoginScreen(props) {
                     </Form>
                 </View>
                 <View style={styles.btnView}>
-                    <Button onPress={() => signin()} block style={{ width: '65%', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: ThemeColor.mainThmemColor, borderColor: 'white', alignItems: 'center' }}>
+                    <Button onPress={() => signin()} block style={{ width: '65%', height: 70, borderRadius: 10, backgroundColor: ThemeColor.mainThmemColor, alignItems: 'center' }}>
                         <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Login</Text>
                     </Button>
                 </View>

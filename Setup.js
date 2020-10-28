@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text ,ActivityIndicator} from 'react-native'
 import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database'
@@ -27,7 +27,7 @@ export { firebase, Auth, database };
 export default function Setup() {
     return (
         <Provider store={store}>
-            <PersistGate persistor={persistor}>
+            <PersistGate loading={<ActivityIndicator/>} persistor={persistor}>
                 <App />
             </PersistGate>
         </Provider>

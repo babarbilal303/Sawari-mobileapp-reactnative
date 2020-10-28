@@ -16,26 +16,36 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import { ThemeColor } from '../Constant/index'
-
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux'
+import { setUsername } from '../Redux/Actions/user'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-
+import { Auth } from '../../Setup'
 
 export function DrawerContent(props) {
-
-
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const logOut = () => {
+        dispatch(setUsername(null))
+        Auth()
+            .signOut()
+            .then(() => console.log('User signed out!'));
+        navigation.navigate('welcome')
+    }
+    console.log(user,"user store")
     return (
         <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
             <DrawerContentScrollView {...props}  >
                 <View style={styles.drawerContent}>
                     <View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', justifyContent: 'space-around', backgroundColor: ThemeColor.mainThmemColor, paddingBottom: '4%' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', justifyContent: 'space-around', paddingVertical: '4%' }}>
 
-                            <Image source={require('../Assets/img/icon_white.png')} style={{ width: '30%', height: "60%" }} />
+                            <Image source={require('../Assets/img/logo_black.png')} style={{ width: '30%', height: "100%" }} />
 
                             <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>Babar bilal</Title>
-                                <Caption style={styles.caption}>03212686769</Caption>
+                                <Title style={styles.title}>{user ? user.name : ''}</Title>
+
                             </View>
                         </View>
 
@@ -98,13 +108,15 @@ export function DrawerContent(props) {
             <Drawer.Section>
                 <View style={styles.continerPakistan} >
                     <View >
-                        <Text>
-                            Made with{" "}
-                        </Text>
+                        <Icon name="heart" size={20} style={{ color: ThemeColor.mainThmemColor }} />
+
                     </View>
                     <View >
-                        <Icon name="heart" size={20} style={{ color: ThemeColor.mainThmemColor }} />
+                        <Text>
+                            {" "}   Made {" "}
+                        </Text>
                     </View>
+
                     <View >
                         <Text > in </Text>
                     </View>
@@ -137,7 +149,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 3,
         fontWeight: 'bold',
-        color: '#ffffff'
+        color: ThemeColor.mainThmemColor
     },
     caption: {
         fontSize: 14,

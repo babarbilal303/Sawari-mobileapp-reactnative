@@ -6,7 +6,14 @@ export var userReducer = (state = initialState.user, action) => {
         case USER.SET_USERNAME:
             console.log(action.payload, "redux update")
             return state = action.payload;
-        default:
-            return state;
+     
+        case USER.SET_ROLE:
+            console.log(action.payload, "redux update")
+            return {
+                ...state,
+                role: action.payload
+            }
+            default:
+                return state;
     }
 };

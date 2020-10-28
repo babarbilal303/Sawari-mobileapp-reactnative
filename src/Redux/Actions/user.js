@@ -12,16 +12,16 @@ export const setUsername = username => {
         });
     };
 };
-export const signUpUser = (email, pasword, name) => {
+export const signUpUser = (email, pasword, name, phoneNumber) => {
     return new Promise(function (resolve, reject) {
 
-        Auth().createUserWithEmailAndPassword(email, pasword, name).then((result) => {
-            // console.log(result,"create fun")
+        Auth().createUserWithEmailAndPassword(email, pasword, name, phoneNumber).then((result) => {
+            console.log(phoneNumber, "create fun")
             resolve(result);
             return result.user.updateProfile({
-                displayName: name
+                displayName: name,
+                phoneNumber: phoneNumber
             })
-
 
         }).catch((err) => {
             console.log("ERROR");
@@ -31,7 +31,7 @@ export const signUpUser = (email, pasword, name) => {
     })
 }
 
-export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber) => {
+export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role) => {
     return new Promise(function (resolve, reject) {
 
         let key;
@@ -46,10 +46,12 @@ export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber) => {
             Name: Name,
             Email: Email,
             Cnic: Cnic,
-            PhoneNuber: PhoneNuber
+            PhoneNuber: PhoneNuber,
+            Role: Role
 
         }
 
+        console.log(dataToSave,"signup database userOBJ")
 
         database().ref('users/' + key).update(dataToSave).then(snapshot => {
             resolve(snapshot);
