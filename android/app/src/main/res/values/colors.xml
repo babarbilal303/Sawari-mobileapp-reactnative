@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- set splash screem color -->
-    <color name="splashscreen_bg">#000000</color>
+    <!-- <color name="splashscreen_bg">#fd4930</color> -->
+    <color name="splashscreen_bg">#ffffff</color>
 
-    <color name="primary_dark">#000000</color>
+    <color name="primary_dark">#fd4930</color>
         
-<color name="status_bar_color">#008000</color>
+<color name="status_bar_color">#fd4930</color>
 
     
 </resources>
