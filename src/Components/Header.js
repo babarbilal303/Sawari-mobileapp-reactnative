@@ -19,7 +19,7 @@ export default HeaderCustom = () => {
                 </Left>
                 <Body >
 
-                    <Image source={require('../Assets/img/logo_black.png')} style={{ width: '90%', height: "85%", marginLeft: '40%' }} />
+                    <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7), marginLeft: '40%' }} />
 
 
                 </Body>

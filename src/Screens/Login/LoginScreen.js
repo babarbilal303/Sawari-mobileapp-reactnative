@@ -51,7 +51,7 @@ function LoginScreen(props) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.LogoView}>
-                    <Image source={require('../../Assets/img/logo_black.png')} style={{ width: '40%', height: "70%" }} />
+                    <Image source={require('../../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(15) }} />
                 </View>
                 <View style={{ height: hp(10) }} />
                 <View style={styles.form}>
@@ -84,7 +84,7 @@ function LoginScreen(props) {
                     </Form>
                 </View>
                 <View style={styles.btnView}>
-                    <Button onPress={() => signin()} block style={{ width: '65%', height: 70, borderRadius: 10, backgroundColor: ThemeColor.mainThmemColor, alignItems: 'center' }}>
+                    <Button onPress={() => signin()} block style={{ width: wp(60), height: hp(10), borderRadius: 10, backgroundColor: ThemeColor.mainThmemColor, alignItems: 'center' }}>
                         <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Login</Text>
                     </Button>
                 </View>

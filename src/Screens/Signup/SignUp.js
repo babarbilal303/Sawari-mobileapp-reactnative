@@ -82,7 +82,7 @@ export default function SignUpScreen({ route }, props) {
             <KeyboardAvoidingView behavior='padding'>
                 <View style={styles.disp}>
                     <View style={styles.navigation} >
-                        <TouchableOpacity onPress={() => { props.navigation.goBack() }} >
+                        <TouchableOpacity onPress={() => { navigation.goBack() }} >
                             <Icon name="chevron-left" size={hp(4)} color={ThemeColor.mainThmemColor} />
                         </TouchableOpacity>
                     </View>
