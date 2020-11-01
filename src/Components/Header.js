@@ -21,7 +21,6 @@ export default HeaderCustom = () => {
 
                     <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7), marginLeft: '40%' }} />
 
-
                 </Body>
                 <Right />
             </Header>

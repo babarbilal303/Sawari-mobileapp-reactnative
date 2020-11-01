@@ -78,37 +78,21 @@ export default function VendorModal(props) {
         console.log(CarDetialObj, 'CarDetail dispatch ');
       //   dispatch(setUsername(userObj));
       submitCarDetails_Cloud(CarDetialObj)
-      //   submitUserObj(
-      //     data.user.uid,
-      //     name,
-      //     emailAddress,
-      //     cnic,
-      //     phoneNumber,
-      //     route.params.Role,
-      //   )
-      //     .then(() => {
-      //       console.log('USER IS SAVED IN DB');
-      //     })
-      //     .catch((error) => {
-      //       console.log('ERROR');
-      //       alert(error);
-      //     });
-
-      //   navigation.navigate('map', {UserName: name});
+    
     } else {
       alert('please fell the complete form');
     }
   };
 
   return (
-    <View>
+    <View  >
       <Modal
         animationIn="slideInRight"
         isVisible={carModelVisiable}
         onBackButtonPress={() => dispatch(setModalToggle(!carModelVisiable))}
         deviceWidth={deviceWidth}
         deviceHeight={deviceHeight}
-        // onBackdropPress={() => dispatch(setModalToggle(false))}
+        onBackdropPress={() => dispatch(setModalToggle(false))}
         animationInTiming={600}
         animationOut={'slideOutRight'}
         avoidKeyboard={true}>
@@ -116,9 +100,8 @@ export default function VendorModal(props) {
           {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
 
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <KeyboardAvoidingView behavior="position">
-                <ScrollView>
+              <KeyboardAvoidingView behavior="position" style={styles.modalView}>
+              
                   <Text style={styles.modalText}>
                     Please Enter Your Car Details:
                   </Text>
@@ -130,6 +113,7 @@ export default function VendorModal(props) {
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
+
                     <Item floatingLabel style={{marginBottom: 8}}>
                       <Label>Car Company</Label>
                       <Input
@@ -192,11 +176,11 @@ export default function VendorModal(props) {
                       />
                     </View>
                   </View>
-                </ScrollView>
+  
               </KeyboardAvoidingView>
             </View>
           </View>
-        </View>
+
       </Modal>
     </View>
   );

@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { connect, useSelector, useDispatch } from "react-redux";
 import styles from './styles'
 import { ThemeColor } from '../../Constant'
+
 function LoginScreen(props) {
     const navigation = useNavigation();
 
@@ -32,8 +33,9 @@ function LoginScreen(props) {
                 name: data.user.displayName,
                 email: data.user.email
             }
+   
             dispatch(setUsername(userObj));
-             navigation.navigate('map');
+             navigation.navigate('home');
         }).catch((error) => {
             console.log("ERROR");
             alert(error)

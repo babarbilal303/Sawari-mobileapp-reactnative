@@ -16,22 +16,45 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import { ThemeColor } from '../Constant/index'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,StackActions,CommonActions  } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'
 import { setUsername } from '../Redux/Actions/user'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Auth } from '../../Setup'
+import AsyncStorage from '@react-native-community/async-storage';
 
 export function DrawerContent(props) {
+
+
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     const logOut = () => {
+        // navigation.dispatch(
+        //     CommonActions.reset({
+        //       index: 1,
+        //       routes: [
+        //         { name: 'welcome' },  
+        //       ],
+        //     })
+        //   );
+        // navigation.dispatch(StackActions.popToTop());
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'welcome' }],
+          });
+        //   navigation.dispatch(StackActions.replace("welcome"))
         dispatch(setUsername(null))
+        AsyncStorage.clear();
         Auth()
             .signOut()
-            .then(() => console.log('User signed out!'));
-        navigation.navigate('welcome')
+            .then(() => {
+                console.log('User signed out!')
+            // navigation.reset("welcome")
+            })
+     
+         
+    
     }
     console.log(user,"user store")
     return (

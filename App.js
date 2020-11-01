@@ -24,9 +24,8 @@ const drawerRoutes = ({ route }) => {
 
   return (
     <Drawer.Navigator initialRouteName="home" drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="home" component={HomeScreen}  />
+      <Drawer.Screen name="home" component={HomeScreen} />
       <Drawer.Screen name="welcome" component={WelcomeScreen} />
-      <Drawer.Screen name="map" component={MapScreen} />
     </Drawer.Navigator>
   )
 }
@@ -50,7 +49,11 @@ export default function App() {
 
         setUserName(user.displayName)
         setInitialLoading(false)
+        // setTimeout(() => {
+        //   setLoggedIn(true)
+        // }, 3000);
         setLoggedIn(true)
+
         // console.log(user, "user hay")
       }
     })
@@ -74,23 +77,22 @@ export default function App() {
               :
               loggenIn ?
                 <>
-
-
                   <Stack.Screen name='Drawer' component={drawerRoutes} initialParams={{ UserName: UserName }} />
                   <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
-                  {/* <Stack.Screen name="home" component={HomeScreen} /> */}
+
                 </> :
-                <>
-                  <Stack.Screen name="welcome" component={WelcomeScreen} />
-                  <Stack.Screen name="getStartedScreen" component={GetStartedScreen} />
-                  <Stack.Screen name="signUpScreen" component={SignUpScreen} />
-                  <Stack.Screen name="loginScreen" component={LoginScreen} />
-                  <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
-                  {/* <Stack.Screen name="home" component={HomeScreen} /> */}
-                  <Stack.Screen name='Drawer' component={drawerRoutes} initialParams={{ UserName: UserName }} />
+               
+                  <>
+                   
+                    <Stack.Screen name="welcome" component={WelcomeScreen} />
+                    <Stack.Screen name="getStartedScreen" component={GetStartedScreen} />
+                    <Stack.Screen name="signUpScreen" component={SignUpScreen} />
+                    <Stack.Screen name="loginScreen" component={LoginScreen} />
+                    <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
+                    <Stack.Screen name='Drawer' component={drawerRoutes} initialParams={{ UserName: UserName }} />
 
 
-                </>
+                  </>
 
           }
         </Stack.Navigator>
