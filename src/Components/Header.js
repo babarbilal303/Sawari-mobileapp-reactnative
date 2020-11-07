@@ -10,20 +10,29 @@ import {
 export default HeaderCustom = () => {
     const navigation = useNavigation();
     return (
-     
-            <Header style={{ backgroundColor: '#ffffff', height: hp(8) }}>
-                <Left>
-                    <Button transparent onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+
+        <Header
+            style={{
+                backgroundColor: '#ffffff', flexDirection: 'row',
+                justifyContent: 'space-between', height: hp(8),
+                // position: 'absolute', top: 0, left: 0, right: 0, elevation: 4
+                
+            }}>
+            <Left>
+                <View >
+                    <Button transparent onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+                    >
                         <Icon name='menu' style={{ color: ThemeColor.mainThmemColor }} />
                     </Button>
-                </Left>
-                <Body >
+                </View>
+            </Left>
+            <Body >
 
-                    <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7), marginLeft: '40%' }} />
+                <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7), marginLeft: '40%' }} />
 
-                </Body>
-                <Right />
-            </Header>
+            </Body>
+            <Right />
+        </Header>
 
 
     );

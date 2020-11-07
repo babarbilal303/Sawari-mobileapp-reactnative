@@ -79,7 +79,7 @@ export default function SignUpScreen({ route }, props) {
 
     return (
         <View style={styles.container} >
-            <KeyboardAvoidingView behavior='padding'>
+            <KeyboardAvoidingView behavior='height'>
                 <View style={styles.disp}>
                     <View style={styles.navigation} >
                         <TouchableOpacity onPress={() => { navigation.goBack() }} >
@@ -172,6 +172,7 @@ export default function SignUpScreen({ route }, props) {
                             />
                         </Item>
                     </View>
+                    
                     <View style={styles.btnView}>
                         <TouchableOpacity onPress={() => signUP()} block style={{ width: '65%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: ThemeColor.mainThmemColor }}>
                             {/* <Icon name="check-circle" size={hp(3)} style={{ color: 'white' }} /> */}

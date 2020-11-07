@@ -3,6 +3,8 @@ import { View, Text ,ActivityIndicator} from 'react-native'
 import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database'
+import storage from '@react-native-firebase/storage';
+
 import App from './App'
 import { Provider } from 'react-redux'
 import { store, persistor } from './src/Store'
@@ -22,7 +24,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 // export const { firebase };
-export { firebase, Auth, database };
+export { firebase, Auth, database,storage };
 
 export default function Setup() {
     return (

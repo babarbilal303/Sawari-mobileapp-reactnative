@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import {
     useTheme,
-    Avatar,
     Title,
     Caption,
     Paragraph,
@@ -16,16 +15,21 @@ import {
     DrawerItem
 } from '@react-navigation/drawer';
 import { ThemeColor } from '../Constant/index'
-import { useNavigation,StackActions,CommonActions  } from '@react-navigation/native';
+import { useNavigation, StackActions, CommonActions } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'
 import { setUsername } from '../Redux/Actions/user'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Auth } from '../../Setup'
+import { Auth, storage } from '../../Setup'
 import AsyncStorage from '@react-native-community/async-storage';
+import { Avatar, Accessory } from 'react-native-elements';
+import { color } from 'react-native-reanimated';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import ImagePicker from 'react-native-image-picker';
 
 export function DrawerContent(props) {
 
-
+    const [SelectedImageUrl, setSelectedImageUrl] = useState('')
+    const [DownloadImage, setDownloadImage] = useState('')
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -42,7 +46,7 @@ export function DrawerContent(props) {
         navigation.reset({
             index: 0,
             routes: [{ name: 'welcome' }],
-          });
+        });
         //   navigation.dispatch(StackActions.replace("welcome"))
         dispatch(setUsername(null))
         AsyncStorage.clear();
@@ -50,13 +54,72 @@ export function DrawerContent(props) {
             .signOut()
             .then(() => {
                 console.log('User signed out!')
-            // navigation.reset("welcome")
+                // navigation.reset("welcome")
             })
-     
-         
-    
+
+
+
     }
-    console.log(user,"user store")
+
+
+    const ImageHandler = () => {
+        const options = {
+            title: 'Select Profile Picture',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                const uri = response.uri;
+                // this.setState({
+                //     selectedPictureUri: uri,
+                // });
+                setSelectedImageUrl(uri)
+                // console.log('store image in state',SelectedImageUrl)
+            }
+        });
+
+        if (SelectedImageUrl) {
+
+
+
+            storage().ref("profile-picture/" + user.email).putFile(SelectedImageUrl).then(res => {
+                console.log('storege workinng')
+                storage().ref("profile-picture/" + user.email).getDownloadURL().then(url => {
+                    console.log("image has been uploaded ")
+                    // navigation.navigate("Category", {
+                    //     Name: name,
+                    //     CNIC: CNIC,
+                    //     Address: address,
+                    //     DOB: DOB,
+                    //     ProfilePicture: url,
+                    //     phoneNumber: phoneNumber
+                    // })
+                    setDownloadImage(url);
+                    console.log("download Image in State: ",DownloadImage )
+
+                }).catch(err => {
+
+                    alert(err)
+                })
+            }).catch(err => {
+                alert(err)
+            })
+
+        }
+
+
+    }
+    console.log(user, "user store")
     return (
         <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
             <DrawerContentScrollView {...props}  >
@@ -64,12 +127,25 @@ export function DrawerContent(props) {
                     <View>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', justifyContent: 'space-around', paddingVertical: '4%' }}>
 
-                            <Image source={require('../Assets/img/logo_black.png')} style={{ width: '30%', height: "100%" }} />
 
-                            <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                                <Title style={styles.title}>{user ? user.name : ''}</Title>
+                            <Avatar
+
+                                onPress={() => ImageHandler()}
+                                avatarStyle={{ borderColor: '#000000', borderWidth: 2 }}
+                                size={"medium"}
+                                rounded
+                                source={{
+                                    uri: DownloadImage
+
+                                }}
+                            >
+                                <Accessory />
+                            </Avatar>
+                            <View >
+                                <Title style={{ ...styles.title }}>{user ? user.name : ''}</Title>
 
                             </View>
+                            <Image source={require('../Assets/img/logo_black.png')} style={{ width: '30%', height: "100%" }} />
                         </View>
 
                     </View>
@@ -169,10 +245,13 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 16,
+        fontSize: 35,
         marginTop: 3,
-        fontWeight: 'bold',
-        color: ThemeColor.mainThmemColor
+        marginRight: 20,
+
+        color: ThemeColor.mainThmemColor,
+        fontFamily: 'CrashLandingBB'
+
     },
     caption: {
         fontSize: 14,

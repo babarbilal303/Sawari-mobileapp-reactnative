@@ -1,11 +1,14 @@
 import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from 'redux-persist';
-import { userReducer,CarModalReducer } from "../Redux/Reducer";
+import { userReducer, CarModalReducer, CarModalVisiableEdit, CarModalVisiableAdd,CarDetailsForEdit } from "../Redux/Reducer";
 import AsyncStorage from '@react-native-community/async-storage';
 const reducers = combineReducers({
     user: userReducer,
-    CarModal:CarModalReducer
+    CarModal: CarModalReducer,
+    CarModalVisiableAdd: CarModalVisiableAdd,
+    CarModalVisiableEdit: CarModalVisiableEdit,
+    CarDetailsForEdit:CarDetailsForEdit,
 })
 const persistConfig = {
     key: 'root',

@@ -10,6 +10,7 @@ import SignUpScreen from './src/Screens/Signup/SignUp'
 import LoginScreen from './src/Screens/Login/LoginScreen'
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import Loading from './src/Components/Loading/Loading'
+import VendorModal from './src/Components/VendorModal/index'
 import { Auth } from './Setup'
 
 import { DrawerContent } from './src/Components/DrawerContent'
@@ -26,6 +27,7 @@ const drawerRoutes = ({ route }) => {
     <Drawer.Navigator initialRouteName="home" drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="home" component={HomeScreen} />
       <Drawer.Screen name="welcome" component={WelcomeScreen} />
+      <Drawer.Screen name="vendorModal" component={VendorModal} />
     </Drawer.Navigator>
   )
 }
@@ -40,6 +42,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+
 
     Auth().onAuthStateChanged(user => {
       if (!user) {
