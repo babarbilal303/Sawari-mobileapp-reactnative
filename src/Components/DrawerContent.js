@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import {
     useTheme,
     Title,
@@ -17,13 +17,13 @@ import {
 import { ThemeColor } from '../Constant/index'
 import { useNavigation, StackActions, CommonActions } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'
-import { setUsername } from '../Redux/Actions/user'
+import { setUsername, UpdateUserProfile } from '../Redux/Actions/user'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Auth, storage } from '../../Setup'
 import AsyncStorage from '@react-native-community/async-storage';
 import { Avatar, Accessory } from 'react-native-elements';
 import { color } from 'react-native-reanimated';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import ImagePicker from 'react-native-image-picker';
 
 export function DrawerContent(props) {
@@ -105,7 +105,8 @@ export function DrawerContent(props) {
                     //     phoneNumber: phoneNumber
                     // })
                     setDownloadImage(url);
-                    console.log("download Image in State: ", DownloadImage)
+                    dispatch(UpdateUserProfile(url));
+                    console.log("download Image in State: ", DownloadImage, url)
 
                 }).catch(err => {
 
@@ -120,6 +121,7 @@ export function DrawerContent(props) {
 
     }
     console.log(user, "user store")
+    console.log("download Image in State: ", DownloadImage)
     return (
         <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
             <DrawerContentScrollView {...props}  >
@@ -130,13 +132,16 @@ export function DrawerContent(props) {
 
                             <Avatar
 
+                                renderPlaceholderContent={<ActivityIndicator />}
                                 onPress={() => ImageHandler()}
-                                avatarStyle={{ borderColor: '#000000', borderWidth: 2 }}
+                                avatarStyle={{ borderColor: ThemeColor.mainThmemColor, borderWidth: 2 }}
                                 size={"medium"}
+                                overlayContainerStyle={{ backgroundColor: 'white' }}
                                 rounded
+                            
                                 source={{
 
-                                    uri: DownloadImage ? DownloadImage : null
+                                    uri: user ? user.profile_url ? user.profile_url : "https://www.w3schools.com/howto/img_avatar2.png":"https://www.w3schools.com/howto/img_avatar2.png"
                                 }}
                             >
                                 <Accessory />

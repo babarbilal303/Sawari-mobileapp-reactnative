@@ -13,6 +13,18 @@ export const setUsername = username => {
         });
     };
 };
+export const UpdateUserProfile = url => {
+    console.log(url, "action redux")
+    return (dispatch, getState) => {
+        return new Promise((resolve, reject) => {
+            dispatch({
+                type: USER.UPDATE_USER_PROFILE,
+                payload: url
+            });
+            resolve();
+        });
+    };
+};
 export const UpdateCarDetialsInUser = cardetails => {
     console.log(cardetails, "action redux cardetial")
     return (dispatch, getState) => {

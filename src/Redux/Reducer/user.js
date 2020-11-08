@@ -22,6 +22,17 @@ export var userReducer = (state = initialState.user, action) => {
                 carDetials: action.payload
             }
             return user
+
+        case USER.UPDATE_USER_PROFILE:
+            console.log(action.payload, "update user profile action payload")
+            console.log(state, "state user Reducer")
+            let user1 = { ...state };
+            user1 = {
+                ...user1,
+                profile_url: action.payload
+            }
+            return user1
+
         case USER.REMOVE_CARINDETIALS:
             console.log(action.payload, "Remove Car reducer")
             console.log(state, "state user Reducer")
