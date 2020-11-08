@@ -129,10 +129,14 @@ export default function HomeScreen() {
   const [isloaded, setisloaded] = useState(false);
   const [refresh, setrefresh] = useState(null);
   const carModelVisiable = useSelector((state) => state.CarModal);
-  const carDetialsReduxState = useSelector((state) => state.user.carDetials ? state.user.carDetials : "");
+  const carDetialsReduxState = useSelector((state) => state.user ? state.user.carDetials : null);
   const userID = Auth().currentUser.uid;
 
-
+  useEffect(() => {
+    return () => {
+      console.log("cleaned up");
+    };
+  }, []);
 
   useEffect(() => {
 
