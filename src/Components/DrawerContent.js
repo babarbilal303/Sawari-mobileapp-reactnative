@@ -105,7 +105,7 @@ export function DrawerContent(props) {
                     //     phoneNumber: phoneNumber
                     // })
                     setDownloadImage(url);
-                    console.log("download Image in State: ",DownloadImage )
+                    console.log("download Image in State: ", DownloadImage)
 
                 }).catch(err => {
 
@@ -135,8 +135,8 @@ export function DrawerContent(props) {
                                 size={"medium"}
                                 rounded
                                 source={{
-                                    uri: DownloadImage
 
+                                    uri: DownloadImage ? DownloadImage : null
                                 }}
                             >
                                 <Accessory />
@@ -145,7 +145,9 @@ export function DrawerContent(props) {
                                 <Title style={{ ...styles.title }}>{user ? user.name : ''}</Title>
 
                             </View>
+
                             <Image source={require('../Assets/img/logo_black.png')} style={{ width: '30%', height: "100%" }} />
+
                         </View>
 
                     </View>

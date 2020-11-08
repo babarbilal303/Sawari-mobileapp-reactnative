@@ -68,7 +68,7 @@ export default function App() {
 
   return (
     <Fragment>
-      {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
+    
 
       <NavigationContainer >
 

@@ -5,8 +5,13 @@
     <color name="splashscreen_bg">#ffffff</color>
 
     <color name="primary_dark">#fd4930</color>
-        
-<color name="status_bar_color">#fd4930</color>
+           <!--   color for the app bar and other primary UI elements -->
 
-    
+
+<color name="status_bar_color">#fd4930</color>
+<!-- for default header -->
+    <color name="colorPrimary">#fd4930</color>  
+    <!-- for status bar after splash screen -->
+    <color name="colorPrimaryDark">#fd4930</color>
+
 </resources>

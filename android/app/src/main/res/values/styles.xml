@@ -1,14 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:textColor">#000000</item>
-         <item name="android:windowIsTranslucent">true</item>
+        <!-- <item name="android:textColor">#000000</item> -->
+        <item name="android:statusBarColor">@color/status_bar_color</item>    
+            <!-- <item name="colorPrimaryDark">@color/colorPrimaryDark</item> -->
+
+            <item name="android:navigationBarColor">@color/status_bar_color</item>
+
     </style>
-    <!-- status bar -->
+
+
+        <!--splash screen status bar -->
     <style name="SplashScreenTheme" parent="SplashScreen_SplashTheme">
         <item name="colorPrimaryDark">@color/status_bar_color</item>
+                    <item name="android:navigationBarColor">@color/status_bar_color</item>
+
     </style>
 
 </resources>

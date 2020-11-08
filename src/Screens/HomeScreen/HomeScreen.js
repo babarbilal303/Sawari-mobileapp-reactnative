@@ -59,15 +59,20 @@ export default function HomeScreen() {
       toValue: { x: startAnimation, y: 20 },
       duration: 2000,
       useNativeDriver: true
-  
+
     }).start()
-  
+
+ 
+
+
   }, [startAnimation])
-  const updateStateAnimationASaProps=()=>{
+ 
+
+  const updateStateAnimationASaProps = () => {
     SetstartAnimation(0)
   }
-  
-  
+
+
 
 
   //for gesture handler
@@ -124,12 +129,10 @@ export default function HomeScreen() {
   const [isloaded, setisloaded] = useState(false);
   const [refresh, setrefresh] = useState(null);
   const carModelVisiable = useSelector((state) => state.CarModal);
-  const carDetialsReduxState = useSelector((state) => state.user.carDetials);
+  const carDetialsReduxState = useSelector((state) => state.user.carDetials ? state.user.carDetials : "");
   const userID = Auth().currentUser.uid;
 
-  useEffect(() => {
-    updateCARDetailsInREDUX();
-  }, [carDetials]);
+
 
   useEffect(() => {
 
@@ -167,11 +170,16 @@ export default function HomeScreen() {
   }, []);
   console.log("cardetails local state", carDetials)
 
-  refresh_Flatlist = (fresh) => {
-    console.log(fresh, "deletekey")``
-    setrefresh(fresh ? fresh : 'red')
+  // refresh_Flatlist = (fresh) => {
+  //   console.log(fresh, "deletekey")``
+  //   setrefresh(fresh ? fresh : 'red')
 
-  }
+  // }
+  useEffect(() => {
+    updateCARDetailsInREDUX();
+
+  }, [carDetials]);
+
   const updateCARDetailsInREDUX = () => {
     console.log("cardetails local state", carDetialsReduxState)
     dispatch(UpdateCarDetialsInUser(carDetials));
@@ -210,7 +218,7 @@ export default function HomeScreen() {
         source={require('../../Assets/img/wk2.png')}
         style={{width: hp(70), height: hp(50)}}> */}
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <VendorModal  buttonAnimation={updateStateAnimationASaProps} />
+        <VendorModal buttonAnimation={updateStateAnimationASaProps} />
       </View>
       {/* </ImageBackground> */}
       <View style={{ flex: 1 }}>
