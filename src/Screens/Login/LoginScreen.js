@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Image,KeyboardAvoidingView } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, KeyboardAvoidingView } from 'react-native'
 import {
     widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as lor,
     removeOrientationListener as rol
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { connect, useSelector, useDispatch } from "react-redux";
 import styles from './styles'
 import { ThemeColor } from '../../Constant'
+import {database} from '../../../Setup'
 
 function LoginScreen(props) {
     const navigation = useNavigation();
@@ -28,14 +29,29 @@ function LoginScreen(props) {
 
         signInUser(state.emailAddress, state.password).then((data) => {
 
-            const userObj = {
-                id: data.user.uid,
-                name: data.user.displayName,
-                email: data.user.email
-            }
+            const userRef = database().ref(`users/${data.user.uid}`);
+            const onloadingListener = userRef.on('value', (snapshot) => {
+                dispatch(setUsername(snapshot._snapshot.value));
+             console.log(snapshot._snapshot.value,"snapsot log")
+                // snapshot.forEach((childSnapshot) => {
+                //     dispatch(setUsername(childSnapshot));
+                // });
+              
 
-            dispatch(setUsername(userObj));
-            navigation.navigate('home');
+            });
+
+
+
+
+
+            // const userObj = {
+            //     id: data.user.uid,
+            //     name: data.user.displayName,
+            //     email: data.user.email,
+            // }
+
+            // dispatch(setUsername(userObj));
+            navigation.navigate('Drawer');
         }).catch((error) => {
             console.log("ERROR");
             alert(error)

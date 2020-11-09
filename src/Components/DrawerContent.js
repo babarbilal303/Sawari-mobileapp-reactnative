@@ -21,7 +21,7 @@ import { setUsername, UpdateUserProfile } from '../Redux/Actions/user'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Auth, storage } from '../../Setup'
 import AsyncStorage from '@react-native-community/async-storage';
-import { Avatar, Accessory } from 'react-native-elements';
+import { Avatar, Accessory, Divider } from 'react-native-elements';
 import { color } from 'react-native-reanimated';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import ImagePicker from 'react-native-image-picker';
@@ -43,10 +43,10 @@ export function DrawerContent(props) {
         //     })
         //   );
         // navigation.dispatch(StackActions.popToTop());
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'welcome' }],
-        });
+        // navigation.reset({
+        //     index: 0,
+        //     routes: [{ name: 'welcome' }],
+        // });
         //   navigation.dispatch(StackActions.replace("welcome"))
         dispatch(setUsername(null))
         AsyncStorage.clear();
@@ -54,6 +54,8 @@ export function DrawerContent(props) {
             .signOut()
             .then(() => {
                 console.log('User signed out!')
+                navigation.dispatch(StackActions.replace("welcome"))
+
                 // navigation.reset("welcome")
             })
 
@@ -138,23 +140,23 @@ export function DrawerContent(props) {
                                 size={"medium"}
                                 overlayContainerStyle={{ backgroundColor: 'white' }}
                                 rounded
-                            
+
                                 source={{
 
-                                    uri: user ? user.profile_url ? user.profile_url : "https://www.w3schools.com/howto/img_avatar2.png":"https://www.w3schools.com/howto/img_avatar2.png"
+                                    uri: user ? user.profile_url ? user.profile_url : "https://www.w3schools.com/howto/img_avatar2.png" : "https://www.w3schools.com/howto/img_avatar2.png"
                                 }}
                             >
                                 <Accessory />
                             </Avatar>
                             <View >
-                                <Title style={{ ...styles.title }}>{user ? user.name : ''}</Title>
+                                <Title style={{ ...styles.title }}>{user ? user.Name : ''}</Title>
 
                             </View>
 
                             <Image source={require('../Assets/img/logo_black.png')} style={{ width: '30%', height: "100%" }} />
 
                         </View>
-
+                        <Divider style={{ backgroundColor: ThemeColor.mainThmemColor, height: 2 }} />
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>

@@ -43,11 +43,11 @@ export default function SignUpScreen({ route }, props) {
         if (emailAddress.length && password.length && name.length && cnic.length && phoneNumber.length) {
             signUpUser(emailAddress, password, name, phoneNumber).then((data) => {
                 const userObj = {
-                    id: data.user.uid,
-                    name: name,
-                    email: emailAddress,
-                    cnic: cnic,
-                    phoneNumber: phoneNumber,
+                    Id: data.user.uid,
+                    Name: name,
+                    Email: emailAddress,
+                    Cnic: cnic,
+                    PhoneNuber: phoneNumber,
                     Role: route.params.Role
 
                 }
@@ -57,8 +57,9 @@ export default function SignUpScreen({ route }, props) {
                 submitUserObj(data.user.uid, name, emailAddress, cnic, phoneNumber, route.params.Role).then(() => {
                     console.log("USER IS SAVED IN DB")
                 })
-
-                navigation.navigate('map', { UserName: name });
+                navigation.navigate('Drawer', { UserName: name });
+                // navigation.navigate('map', { UserName: name });
+                
             }).catch((error) => {
                 console.log("ERROR");
                 alert(error)
@@ -172,7 +173,7 @@ export default function SignUpScreen({ route }, props) {
                             />
                         </Item>
                     </View>
-                    
+
                     <View style={styles.btnView}>
                         <TouchableOpacity onPress={() => signUP()} block style={{ width: '65%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: ThemeColor.mainThmemColor }}>
                             {/* <Icon name="check-circle" size={hp(3)} style={{ color: 'white' }} /> */}

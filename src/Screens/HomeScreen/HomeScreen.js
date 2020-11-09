@@ -62,11 +62,11 @@ export default function HomeScreen() {
 
     }).start()
 
- 
+
 
 
   }, [startAnimation])
- 
+
 
   const updateStateAnimationASaProps = () => {
     SetstartAnimation(0)
@@ -127,7 +127,7 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const [carDetials, setCarDetials] = useState([]);
   const [isloaded, setisloaded] = useState(false);
-  const [refresh, setrefresh] = useState(null);
+  const [refresh, setrefresh] = useState(false);
   const carModelVisiable = useSelector((state) => state.CarModal);
   const carDetialsReduxState = useSelector((state) => state.user ? state.user.carDetials : null);
   const userID = Auth().currentUser.uid;
@@ -197,7 +197,7 @@ export default function HomeScreen() {
     SetstartAnimation(82)
     dispatch(ModalTOggleONADD())
     dispatch(setModalToggle(!carModelVisiable))
-
+    setrefresh(!refresh);
 
   }
   return (
@@ -229,7 +229,7 @@ export default function HomeScreen() {
         {isloaded ?
           <FlatList
 
-
+            extraData={refresh} //for update a flat list
             onScroll={(e) => {
               scrollY.setValue(e.nativeEvent.contentOffset.y) //how much user scroll =e.nativeEvent.contentOffset.y
             }}
