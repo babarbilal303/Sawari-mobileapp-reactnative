@@ -10,6 +10,8 @@ import {
   TouchableHighlight,
   Alert,
   Button,
+  Platform,
+  SafeAreaView
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -35,7 +37,7 @@ export default function VendorModal(props) {
   const carModelVisiable = useSelector((state) => state.CarModal);
   const CarDetailForEditData = useSelector((state) => state.CarDetailsForEdit);
 
-
+  const [EnabledShift, SetEnabledShift] = useState(false);
   const [state, setstate] = useState({
     Id: null,
     CarComapany: '',
@@ -162,9 +164,9 @@ export default function VendorModal(props) {
               {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
 
               <View style={styles.centeredView}>
-                <KeyboardAvoidingView behavior="position" style={styles.modalView}>
+                <KeyboardAvoidingView behavior="position" style={styles.modalView} enabled={EnabledShift}>
 
-                  <Text style={styles.modalText}>
+                  <Text style={!EnabledShift && styles.modalText}>
                     Please Enter Your Car Details:
                     </Text>
 
@@ -179,7 +181,7 @@ export default function VendorModal(props) {
                     <Item floatingLabel style={{ marginBottom: 8 }}>
                       <Label>Car Company</Label>
                       <Input
-
+                        onFocus={() => SetEnabledShift(false)}
                         onChangeText={(carC) => {
 
                           setstate({ ...state, CarComapany: carC });
@@ -192,6 +194,7 @@ export default function VendorModal(props) {
                     <Item floatingLabel style={{ marginBottom: 8 }}>
                       <Label>Car Name</Label>
                       <Input
+                        onFocus={() => SetEnabledShift(false)}
                         onChangeText={(carName) => {
                           setstate({ ...state, CarName: carName });
                         }}
@@ -200,6 +203,7 @@ export default function VendorModal(props) {
                     <Item floatingLabel style={{ marginBottom: 8 }}>
                       <Label>Car Model</Label>
                       <Input
+                        onFocus={() => SetEnabledShift(false)}
                         onChangeText={(CarModel) => {
                           setstate({ ...state, CarModel: CarModel });
                         }}
@@ -208,6 +212,7 @@ export default function VendorModal(props) {
                     <Item floatingLabel style={{ marginBottom: 8 }}>
                       <Label>Car Color </Label>
                       <Input
+                        onFocus={() => SetEnabledShift(false)}
                         onChangeText={(CarColor) => {
                           setstate({ ...state, CarColor: CarColor });
                         }}
@@ -216,6 +221,7 @@ export default function VendorModal(props) {
                     <Item floatingLabel style={{ marginBottom: 8 }}>
                       <Label> Car Number</Label>
                       <Input
+                        onFocus={() => SetEnabledShift(false)}
                         placeholderTextColor={ThemeColor.mainThmemColor}
                         onChangeText={(CarNumber) => {
                           setstate({ ...state, CarNumber: CarNumber });
@@ -226,6 +232,7 @@ export default function VendorModal(props) {
                       <Label> Per Day</Label>
                       <Input
                         keyboardType={'numeric'}
+                        onFocus={() => SetEnabledShift(true)}
                         placeholderTextColor={ThemeColor.mainThmemColor}
                         onChangeText={(PerDay) => {
                           setstate({ ...state, PerDay: PerDay });
@@ -254,7 +261,8 @@ export default function VendorModal(props) {
 
 
       return (
-        <View >
+     
+
           <Modal
             animationIn="slideInRight"
             isVisible={carModelVisiable}
@@ -264,103 +272,106 @@ export default function VendorModal(props) {
             onBackdropPress={() => dispatch(setModalToggle(false))}
             animationInTiming={600}
             animationOut={'slideOutRight'}
-            avoidKeyboard={true}>
-            <View style={{ flex: 1 }}>
-              {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
+          >
+            {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
 
-              <View style={styles.centeredView}>
-                <KeyboardAvoidingView behavior="position" style={styles.modalView}>
-
-                  <Text style={styles.modalText}>
-                    Please Enter Your Car Details:
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+              <KeyboardAvoidingView
+          enabled={EnabledShift}
+          behavior={'position'}
+          style={{ flex: 1 }} >
+                <Text style={styles.modalText}>
+                  Please Enter Your Car Details:
                     </Text>
 
-                  <View
-                    style={{
-                      height: hp(60),
-                      width: wp(80),
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                <View
+                  style={{
+                    height: hp(60),
+                    width: wp(80),
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
 
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label>Car Company</Label>
-                      <Input
-                        value={Updatestate.CarComapany}
-                        onChangeText={(carC) => {
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label>Car Company</Label>
+                    <Input
+                      value={Updatestate.CarComapany}
+                      onChangeText={(carC) => {
 
-                          Updatesetstate({ ...Updatestate, CarComapany: carC });
+                        Updatesetstate({ ...Updatestate, CarComapany: carC });
 
-                        }}
-                      />
-                      <Button onPress={() => toggleEditing()}><Text>Edit</Text></Button>
-                    </Item>
+                      }}
+                    />
+                    <Button onPress={() => toggleEditing()}><Text>Edit</Text></Button>
+                  </Item>
 
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label>Car Name</Label>
-                      <Input
-                        value={Updatestate.CarName}
-                        onChangeText={(carName) => {
-                          Updatesetstate({ ...Updatestate, CarName: carName });
-                        }}
-                      />
-                    </Item>
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label>Car Model</Label>
-                      <Input
-                        value={Updatestate.CarModel}
-                        onChangeText={(CarModel) => {
-                          Updatesetstate({ ...Updatestate, CarModel: CarModel });
-                        }}
-                      />
-                    </Item>
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label>Car Color </Label>
-                      <Input
-                        value={Updatestate.CarColor}
-                        onChangeText={(CarColor) => {
-                          Updatesetstate({ ...Updatestate, CarColor: CarColor });
-                        }}
-                      />
-                    </Item>
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label> Car Number</Label>
-                      <Input
-                        value={Updatestate.CarNumber}
-                        placeholderTextColor={ThemeColor.mainThmemColor}
-                        onChangeText={(CarNumber) => {
-                          Updatesetstate({ ...Updatestate, CarNumber: CarNumber });
-                        }}
-                      />
-                    </Item>
-                    <Item floatingLabel style={{ marginBottom: 8 }}>
-                      <Label> Per Day</Label>
-                      <Input
-                        value={Updatestate.PerDay}
-                        keyboardType={'numeric'}
-                        placeholderTextColor={ThemeColor.mainThmemColor}
-                        onChangeText={(PerDay) => {
-                          Updatesetstate({ ...Updatestate, PerDay: PerDay });
-                        }}
-                      />
-                    </Item>
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label>Car Name</Label>
+                    <Input
+                      value={Updatestate.CarName}
+                      onChangeText={(carName) => {
+                        Updatesetstate({ ...Updatestate, CarName: carName });
+                      }}
+                    />
+                  </Item>
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label>Car Model</Label>
+                    <Input
+                      value={Updatestate.CarModel}
+                      onChangeText={(CarModel) => {
+                        Updatesetstate({ ...Updatestate, CarModel: CarModel });
+                      }}
+                    />
+                  </Item>
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label>Car Color </Label>
+                    <Input
+                      value={Updatestate.CarColor}
+                      onChangeText={(CarColor) => {
+                        Updatesetstate({ ...Updatestate, CarColor: CarColor });
+                      }}
+                    />
+                  </Item>
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label> Car Number</Label>
+                    <Input
+                      value={Updatestate.CarNumber}
+                      placeholderTextColor={ThemeColor.mainThmemColor}
+                      onChangeText={(CarNumber) => {
+                        Updatesetstate({ ...Updatestate, CarNumber: CarNumber });
+                      }}
+                    />
+                  </Item>
+                  <Item floatingLabel style={{ marginBottom: 8 }}>
+                    <Label> Per Day</Label>
+                    <Input
+                      onFocus={() => SetEnabledShift(true)}
+                      value={Updatestate.PerDay}
+                      keyboardType={'numeric'}
+                      placeholderTextColor={ThemeColor.mainThmemColor}
+                      onChangeText={(PerDay) => {
+                        Updatesetstate({ ...Updatestate, PerDay: PerDay });
+                      }}
+                    />
+                  </Item>
 
-                    <View style={{ width: wp(20), height: hp(10), marginTop: 5 }}>
-                      <Button
-                        color={ThemeColor.mainThmemColor}
-                        title="UPDATE"
-                        // onPress={() => dispatch(setModalToggle(false))}
-                        onPress={() => UpdateCarDetail(Updatestate)}
-                      />
-                    </View>
+                  <View style={{ width: wp(20), height: hp(10), marginTop: 5 }}>
+                    <Button
+                      color={ThemeColor.mainThmemColor}
+                      title="UPDATE"
+                      // onPress={() => dispatch(setModalToggle(false))}
+                      onPress={() => UpdateCarDetail(Updatestate)}
+                    />
                   </View>
-
+                </View>
                 </KeyboardAvoidingView>
-              </View>
-            </View>
 
+              </View>
+        
+            </View>
           </Modal>
-        </View>
+    
       );
     }
   }

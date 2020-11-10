@@ -11,12 +11,14 @@ import { Auth } from '../../../Setup'
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThemeColor } from '../../Constant'
+import { Picker } from '@react-native-picker/picker';
 
 
 
 export default function SignUpScreen({ route }, props) {
 
     const navigation = useNavigation();
+    const [selectedValue, setSelectedValue] = useState("Johar");
     const [state, setstate] = useState({
         name: '',
         emailAddress: '',
@@ -29,6 +31,7 @@ export default function SignUpScreen({ route }, props) {
     const [User, setUser] = useState();
     const dispatch = useDispatch();
 
+    const [EnabledShift, SetEnabledShift] = useState(false);
 
 
 
@@ -40,7 +43,7 @@ export default function SignUpScreen({ route }, props) {
 
 
 
-        if (emailAddress.length && password.length && name.length && cnic.length && phoneNumber.length) {
+        if (emailAddress.length && password.length && name.length && cnic.length && phoneNumber.length&&selectedValue.length) {
             signUpUser(emailAddress, password, name, phoneNumber).then((data) => {
                 const userObj = {
                     Id: data.user.uid,
@@ -48,18 +51,19 @@ export default function SignUpScreen({ route }, props) {
                     Email: emailAddress,
                     Cnic: cnic,
                     PhoneNuber: phoneNumber,
-                    Role: route.params.Role
+                    Role: route.params.Role,
+                    Area:selectedValue
 
                 }
                 console.log(userObj, "signup dispatch userOBJ")
                 dispatch(setUsername(userObj));
 
-                submitUserObj(data.user.uid, name, emailAddress, cnic, phoneNumber, route.params.Role).then(() => {
+                submitUserObj(data.user.uid, name, emailAddress, cnic, phoneNumber, route.params.Role,selectedValue).then(() => {
                     console.log("USER IS SAVED IN DB")
                 })
                 navigation.navigate('Drawer', { UserName: name });
                 // navigation.navigate('map', { UserName: name });
-                
+
             }).catch((error) => {
                 console.log("ERROR");
                 alert(error)
@@ -79,120 +83,143 @@ export default function SignUpScreen({ route }, props) {
 
 
     return (
-        <View style={styles.container} >
-            <KeyboardAvoidingView behavior='height'>
-                <View style={styles.disp}>
-                    <View style={styles.navigation} >
-                        <TouchableOpacity onPress={() => { navigation.goBack() }} >
-                            <Icon name="chevron-left" size={hp(4)} color={ThemeColor.mainThmemColor} />
-                        </TouchableOpacity>
-                    </View>
+
+        <KeyboardAvoidingView behavior='position' enabled={EnabledShift} style={styles.container}>
+            <View style={styles.disp}>
+                <View style={styles.navigation} >
+                    <TouchableOpacity onPress={() => { navigation.goBack() }} >
+                        <Icon name="chevron-left" size={hp(4)} color={ThemeColor.mainThmemColor} />
+                    </TouchableOpacity>
                 </View>
-                <View style={{ height: hp(10), alignItems: 'center' }} >
-                    <Image source={require('../../Assets/img/logo.png')} style={{ width: '35%', height: "90%" }} />
+            </View>
+            <View style={{ height: hp(10), alignItems: 'center' }} >
+                <Image source={require('../../Assets/img/logo.png')} style={{ width: '35%', height: "90%" }} />
+            </View>
+            <View style={{ height: hp(5) }} />
+
+
+            <Form style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <View>
+                    <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
+
+                        <Input
+                            // autoFocus={true}
+                            style={{ color: '#fa472f', fontSize: 20 }}
+
+                            value={state.name}
+                            onChangeText={(name) => { setstate({ ...state, name: name }) }}
+                            autoCapitalize='none'
+                            placeholder="Username"
+                            onFocus={() => SetEnabledShift(false)}
+                            placeholderTextColor="#ffffff"
+
+                        />
+                    </Item>
                 </View>
-                <View style={{ height: hp(5) }} />
 
+                <View>
 
-                <Form style={{
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <View>
-                        <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
+                    <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderBottomWidth: 2, borderColor: ThemeColor.mainThmemColor }}>
 
-                            <Input
-                                autoFocus={true}
-                                style={{ color: '#fa472f', fontSize: 20 }}
+                        <Input
+                            style={{ color: '#fa472f', fontSize: 20 }}
+                            value={state.emailAddress}
+                            onChangeText={(email) => { setstate({ ...state, emailAddress: email }) }}
+                            autoCapitalize='none'
+                            placeholder="Email"
+                            onFocus={() => SetEnabledShift(false)}
+                            placeholderTextColor="#ffffff"
+                        />
 
-                                value={state.name}
-                                onChangeText={(name) => { setstate({ ...state, name: name }) }}
-                                autoCapitalize='none'
-                                placeholder="Username"
-                                placeholderTextColor="#ffffff"
-                            />
-                        </Item>
-                    </View>
-                    <View>
+                    </Item>
+                </View>
+                <View>
 
-                        <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderBottomWidth: 2, borderColor: ThemeColor.mainThmemColor }}>
+                    <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
 
-                            <Input
-                                style={{ color: '#fa472f', fontSize: 20 }}
-                                value={state.emailAddress}
-                                onChangeText={(email) => { setstate({ ...state, emailAddress: email }) }}
-                                autoCapitalize='none'
-                                placeholder="Email"
-                                placeholderTextColor="#ffffff"
-                            />
+                        <Input keyboardType="number-pad"
+                            style={{ color: '#fa472f', fontSize: 20 }}
+                            value={state.phoneNumber}
+                            onChangeText={(phoneNumber) => { setstate({ ...state, phoneNumber: phoneNumber }) }}
+                            autoCapitalize='none'
+                            placeholder="Phone no"
+                            onFocus={() => SetEnabledShift(false)}
+                            placeholderTextColor="#ffffff"
 
-                        </Item>
-                    </View>
-                    <View>
+                        />
+                    </Item>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center',justifyContent:'center' }}>
+                <Label style={{color:'#ffffff'}}>Select your area:</Label>
+                    <Picker
+                        selectedValue={selectedValue}
+                        dropdownIconColor="#ffffff"
+                        style={{ height: 50, width: wp(50),color:'#ffffff' }}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setSelectedValue(itemValue)
+                        }>
+                     
+                        <Picker.Item label="Johar" value="Johar" /> 
+                        <Picker.Item label="Hadeed" value="Hadeed" />
+                        <Picker.Item label="Malir" value="Malir" />
+                    </Picker>
+                </View>
+             
+             
+              <View>
 
-                        <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
+                    <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
 
-                            <Input keyboardType="number-pad"
-                                style={{ color: '#fa472f', fontSize: 20 }}
-                                value={state.phoneNumber}
-                                onChangeText={(phoneNumber) => { setstate({ ...state, phoneNumber: phoneNumber }) }}
-                                autoCapitalize='none'
-                                placeholder="Phone no"
-                                placeholderTextColor="#ffffff"
+                        <Input keyboardType="number-pad"
+                            style={{ color: '#fa472f', fontSize: 20 }}
+                            value={state.cnic}
+                            onChangeText={(cnic) => { setstate({ ...state, cnic: cnic }) }}
+                            autoCapitalize='none'
+                            placeholder="Cnic no"
+                            onFocus={() => SetEnabledShift(true)}
+                            placeholderTextColor="#ffffff"
+                        />
+                    </Item>
 
-                            />
-                        </Item>
-                    </View>
-                    <View>
+                </View>
+                <View>
+                    <Item style={{ width: wp(90), borderRadius: 10, borderColor: ThemeColor.mainThmemColor }}>
 
-                        <Item style={{ width: wp(90), borderRadius: 10, marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
+                        <Input secureTextEntry keyboardType="number-pad"
+                            style={{ color: '#fa472f', fontSize: 20 }}
+                            value={state.password}
+                            onChangeText={(pass) => setstate({ ...state, password: pass })}
+                            autoCapitalize='none'
+                            placeholder="Password"
+                            onFocus={() => SetEnabledShift(true)}
+                            placeholderTextColor="#ffffff"
+                        />
+                    </Item>
+                </View>
 
-                            <Input keyboardType="number-pad"
-                                style={{ color: '#fa472f', fontSize: 20 }}
-                                value={state.cnic}
-                                onChangeText={(cnic) => { setstate({ ...state, cnic: cnic }) }}
-                                autoCapitalize='none'
-                                placeholder="Cnic no"
-                                placeholderTextColor="#ffffff"
-                            />
-                        </Item>
+                <View style={styles.btnView}>
+                    <TouchableOpacity onPress={() => signUP()} block style={{ width: '65%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: ThemeColor.mainThmemColor }}>
+                        {/* <Icon name="check-circle" size={hp(3)} style={{ color: 'white' }} /> */}
+                        <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Signup</Text>
+                    </TouchableOpacity>
 
-                    </View>
-                    <View>
-                        <Item style={{ width: wp(90), borderRadius: 10, borderColor: ThemeColor.mainThmemColor }}>
+                </View>
+            
+            </Form>
 
-
-
-                            <Input secureTextEntry keyboardType="number-pad"
-                                style={{ color: '#fa472f', fontSize: 20 }}
-                                value={state.password}
-                                onChangeText={(pass) => setstate({ ...state, password: pass })}
-                                autoCapitalize='none'
-                                placeholder="Password"
-                                placeholderTextColor="#ffffff"
-                            />
-                        </Item>
-                    </View>
-
-                    <View style={styles.btnView}>
-                        <TouchableOpacity onPress={() => signUP()} block style={{ width: '65%', justifyContent: 'center', alignItems: 'center', height: 70, borderRadius: 10, borderWidth: 2, backgroundColor: ThemeColor.mainThmemColor }}>
-                            {/* <Icon name="check-circle" size={hp(3)} style={{ color: 'white' }} /> */}
-                            <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Signup</Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </Form>
-
-            </KeyboardAvoidingView>
-
-
+        </KeyboardAvoidingView>
 
 
 
 
 
 
-        </View>
+
+
+
 
 
 

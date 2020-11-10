@@ -11,10 +11,12 @@ import LoginScreen from './src/Screens/Login/LoginScreen'
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import Loading from './src/Components/Loading/Loading'
 import VendorModal from './src/Components/VendorModal/index'
+import MapScreen from './src/Screens/Map';
+import HomeUserScreen from './src/Screens/ClientScreens/HomeUserScreen/HomeUserScreen'
 import { Auth } from './Setup'
 import { useDispatch, useSelector } from 'react-redux'
 import { DrawerContent } from './src/Components/DrawerContent'
-import MapScreen from './src/Screens/Map';
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 

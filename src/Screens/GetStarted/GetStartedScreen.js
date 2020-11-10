@@ -9,6 +9,7 @@ import {
     widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as lor,
     removeOrientationListener as rol
 } from 'react-native-responsive-screen';
+import { ThemeColor } from '../../Constant'
 
 
 export default GetStartedScreen = ({ route, navigation }) => {
@@ -37,6 +38,8 @@ export default GetStartedScreen = ({ route, navigation }) => {
                 <View style={styles.subtitleView} />
                 <View style={styles.footer}>
                     <Text style={{ fontSize: hp(2.5), color: 'white' }} >Let's Get Started</Text>
+                    <Text style={{ fontSize: hp(2.5), color: ThemeColor.mainThmemColor }} >{route.params.Role}</Text>
+
                     <View style={{ height: hp(10) }} />
                     <View>
 

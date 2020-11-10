@@ -88,7 +88,7 @@ export const signUpUser = (email, pasword, name, phoneNumber) => {
     })
 }
 
-export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role) => {
+export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role,Area) => {
     return new Promise(function (resolve, reject) {
 
         let key;
@@ -104,7 +104,8 @@ export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role) => {
             Email: Email,
             Cnic: Cnic,
             PhoneNuber: PhoneNuber,
-            Role: Role
+            Role: Role,
+            Area
 
         }
 
