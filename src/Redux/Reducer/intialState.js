@@ -5,6 +5,7 @@ const initialState = {
     CarModalVisiable: false,
     carMoadlVisiable_EDIT: false,
     carMoadlVisiable_ADD: false,
-    CarDetailsForEdit: {}
+    CarDetailsForEdit: {},
+    Alldetails:[]
 }
 export default initialState;

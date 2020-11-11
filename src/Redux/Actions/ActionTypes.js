@@ -18,6 +18,9 @@ export const CARMODAL = {
     CAR_MODAL_VISIABLE_EDIT_FALSE: "CAR_MODAL_VISIABLE_EDIT_FALSE",
 
 };
+export const DETAILS = {
+    GET_ALL_DETAILS: "GET_ALL_DETAILS"
+}
 export const CAR_DETAILS = {
     UPDATE_CAR: "UPDATE_USER",
 };

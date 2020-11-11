@@ -16,11 +16,29 @@ import HomeUserScreen from './src/Screens/ClientScreens/HomeUserScreen/HomeUserS
 import { Auth } from './Setup'
 import { useDispatch, useSelector } from 'react-redux'
 import { DrawerContent } from './src/Components/DrawerContent'
+import {UserDrawerContent } from './src/Components/UserDrawer/UserDrawer'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const UserDrawerRoutes = ({ route }) => {
 
+
+
+  return (
+    <Drawer.Navigator initialRouteName="homeUserScreen" drawerContent={props => <UserDrawerContent {...props} />}
+      drawerStyle={{
+        backgroundColor: 'white',
+        width: 250,
+      }}
+
+    >
+      <Drawer.Screen name="homeUserScreen" component={HomeUserScreen} />
+
+
+    </Drawer.Navigator>
+  )
+}
 
 const DrawerRoutes = ({ route }) => {
 
@@ -35,7 +53,7 @@ const DrawerRoutes = ({ route }) => {
 
     >
       <Drawer.Screen name="home" component={HomeScreen} />
-    
+
 
     </Drawer.Navigator>
   )
@@ -46,6 +64,9 @@ export default function App() {
   const [initialLoading, setInitialLoading] = useState(true)
   const [UserName, setUserName] = useState("")
   const user = useSelector(state => state.user);
+  const [Vendor, setVendor] = useState(false);
+  const [userClient, setuserClient] = useState(false)
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -65,6 +86,11 @@ export default function App() {
       //   setLoggedIn(true)
       // }, 3000);
       setLoggedIn(true)
+      if (user.Role == "vendor") {
+        setVendor(true);
+      } else if (user.Role == "user") {
+        setuserClient(true);
+      }
 
       // console.log(user, "user hay")
     }
@@ -76,41 +102,67 @@ export default function App() {
 
 
   return (
- 
 
 
 
-      <NavigationContainer >
+
+    <NavigationContainer >
 
 
-        <Stack.Navigator headerMode={"none"} initialRouteName="Loading" screenOptions={{ gestureEnabled: false }}>
-          {
-            initialLoading ?
-              <Stack.Screen name='Loading' component={Loading} />
-              :
-              loggenIn ?
+      <Stack.Navigator headerMode={"none"} initialRouteName="Loading" screenOptions={{ gestureEnabled: false }}>
+        {
+          initialLoading ?
+            <Stack.Screen name='Loading' component={Loading} />
+            :
+            loggenIn ?
+              Vendor ?
                 <>
                   <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
                   <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
+                 
 
                 </> :
+                userClient ?
+                  <>
 
-                <>
-
-                  <Stack.Screen name="welcome" component={WelcomeScreen} />
-                  <Stack.Screen name="getStartedScreen" component={GetStartedScreen} />
-                  <Stack.Screen name="signUpScreen" component={SignUpScreen} />
-                  <Stack.Screen name="loginScreen" component={LoginScreen} />
-                  <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
-                  <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
+                    <Stack.Screen name='userDrawer' component={UserDrawerRoutes} initialParams={{ UserName: UserName }} />
 
 
-                </>
 
-          }
-        </Stack.Navigator>
+                  </>
+                  :
+                  <>
 
-      </NavigationContainer>
- 
+                    <Stack.Screen name="welcome" component={WelcomeScreen} />
+                    <Stack.Screen name="getStartedScreen" component={GetStartedScreen} />
+                    <Stack.Screen name="signUpScreen" component={SignUpScreen} />
+                    <Stack.Screen name="loginScreen" component={LoginScreen} />
+                    <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
+                    <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
+                    <Stack.Screen name='userHomeScreen' component={HomeUserScreen} initialParams={{ UserName: UserName }} />
+                    <Stack.Screen name='userDrawer' component={UserDrawerRoutes} initialParams={{ UserName: UserName }} />
+
+
+                  </>
+
+
+              : <>
+
+                <Stack.Screen name="welcome" component={WelcomeScreen} />
+                <Stack.Screen name="getStartedScreen" component={GetStartedScreen} />
+                <Stack.Screen name="signUpScreen" component={SignUpScreen} />
+                <Stack.Screen name="loginScreen" component={LoginScreen} />
+                <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
+                <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
+                <Stack.Screen name='userHomeScreen' component={HomeUserScreen} initialParams={{ UserName: UserName }} />
+                <Stack.Screen name='userDrawer' component={UserDrawerRoutes} initialParams={{ UserName: UserName }} />
+
+
+              </>
+        }
+      </Stack.Navigator>
+
+    </NavigationContainer>
+
   );
 }

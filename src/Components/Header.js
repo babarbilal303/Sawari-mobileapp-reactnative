@@ -11,12 +11,14 @@ export default HeaderCustom = () => {
     const navigation = useNavigation();
     return (
 
-        <Header
+        <View
             style={{
-                backgroundColor: '#ffffff', flexDirection: 'row',
+                flexDirection: 'row',
                 justifyContent: 'space-between', height: hp(8),
+                backgroundColor: 'white',
+                elevation: 4
                 // position: 'absolute', top: 0, left: 0, right: 0, elevation: 4
-                
+
             }}>
             <Left>
                 <View >
@@ -28,11 +30,11 @@ export default HeaderCustom = () => {
             </Left>
             <Body >
 
-                <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7), marginLeft: '40%' }} />
+                <Image source={require('../Assets/img/logo_black.png')} style={{ width: wp(30), height: hp(7) }} />
 
             </Body>
             <Right />
-        </Header>
+        </View>
 
 
     );

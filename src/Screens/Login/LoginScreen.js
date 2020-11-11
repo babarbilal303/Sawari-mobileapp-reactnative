@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, KeyboardAvoidingView } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Image, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import {
     widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange as lor,
     removeOrientationListener as rol
@@ -11,7 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { connect, useSelector, useDispatch } from "react-redux";
 import styles from './styles'
 import { ThemeColor } from '../../Constant'
-import {database} from '../../../Setup'
+import { database } from '../../../Setup'
+import Loading from '../../Components/Loading/Loading'
 
 function LoginScreen(props) {
     const navigation = useNavigation();
@@ -21,37 +22,27 @@ function LoginScreen(props) {
         emailAddress: '',
         password: ''
     })
-
+    const [activityIndicator, SetactivityIndicator] = useState(false)
     const username = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     const signin = () => {
 
         signInUser(state.emailAddress, state.password).then((data) => {
-
+            SetactivityIndicator(true);
             const userRef = database().ref(`users/${data.user.uid}`);
             const onloadingListener = userRef.on('value', (snapshot) => {
                 dispatch(setUsername(snapshot._snapshot.value));
-             console.log(snapshot._snapshot.value,"snapsot log")
+            
                 // snapshot.forEach((childSnapshot) => {
                 //     dispatch(setUsername(childSnapshot));
                 // });
-              
-
+            
+                snapshot._snapshot.value.Role == "vendor" ? navigation.navigate('Drawer') : navigation.navigate('userDrawer')
+                SetactivityIndicator(false);
             });
 
 
-
-
-
-            // const userObj = {
-            //     id: data.user.uid,
-            //     name: data.user.displayName,
-            //     email: data.user.email,
-            // }
-
-            // dispatch(setUsername(userObj));
-            navigation.navigate('Drawer');
         }).catch((error) => {
             console.log("ERROR");
             alert(error)
@@ -102,6 +93,7 @@ function LoginScreen(props) {
 
                         </Form>
                     </View>
+
                     <View style={styles.btnView}>
                         <Button onPress={() => signin()} block style={{ width: wp(60), height: hp(10), borderRadius: 10, backgroundColor: ThemeColor.mainThmemColor, alignItems: 'center' }}>
                             <Text style={{ fontSize: hp(3), fontWeight: 'bold', color: 'white' }}>  Login</Text>
@@ -109,7 +101,15 @@ function LoginScreen(props) {
                     </View>
                     <TouchableOpacity onPress={() => navigation.navigate('signUpScreen')} style={styles.RigisterText}>
                         <Text>Don't have an account? Create New Accout</Text>
+
+                        {activityIndicator ?
+                            <ActivityIndicator size="large" color={ThemeColor.mainThmemColor} /> : null
+                        }
                     </TouchableOpacity>
+
+                   
+
+
                 </View>
             </KeyboardAvoidingView>
         </View>

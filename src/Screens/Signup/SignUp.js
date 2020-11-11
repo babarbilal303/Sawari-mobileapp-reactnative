@@ -16,6 +16,7 @@ import { Picker } from '@react-native-picker/picker';
 
 
 export default function SignUpScreen({ route }, props) {
+    const username = useSelector(state => state.user);
 
     const navigation = useNavigation();
     const [selectedValue, setSelectedValue] = useState("Johar");
@@ -61,7 +62,8 @@ export default function SignUpScreen({ route }, props) {
                 submitUserObj(data.user.uid, name, emailAddress, cnic, phoneNumber, route.params.Role,selectedValue).then(() => {
                     console.log("USER IS SAVED IN DB")
                 })
-                navigation.navigate('Drawer', { UserName: name });
+                userObj.Role == "vendor" ? navigation.navigate('Drawer') : navigation.navigate('userDrawer') 
+                // navigation.navigate('Drawer', { UserName: name });
                 // navigation.navigate('map', { UserName: name });
 
             }).catch((error) => {
