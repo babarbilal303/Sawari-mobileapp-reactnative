@@ -17,10 +17,78 @@ import { Auth } from './Setup'
 import { useDispatch, useSelector } from 'react-redux'
 import { DrawerContent } from './src/Components/DrawerContent'
 import { UserDrawerContent } from './src/Components/UserDrawer/UserDrawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { ThemeColor } from './src/Constant/index'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
+const MyTabs = ({ route }) => {
+  return (
+    <Tab.Navigator initialRouteName="home"
+      // tabBarOptions={{
+      //   labelStyle: {
+      //     // color: 'red',
+      //     fontSize: 20,
+
+
+      //   },
+      //   activeTintColor:'red',
+      //   inactiveTintColor:'black'
+      // }} 
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'ios-information-circle'
+              : 'ios-information-circle-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'gear' : 'gear';
+          }
+
+          // You can return any component that you like here!
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+
+        activeTintColor: '#ffffff',
+        inactiveTintColor: 'gray',
+        labelStyle: {
+          // color: 'red',
+          fontSize: 15,
+
+
+        },
+        style: {
+          backgroundColor: ThemeColor.mainThmemColor
+        }
+
+      }}
+
+
+    >
+      <Tab.Screen name="Home" component={HomeScreen}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => <FontAwesome name="home" size={30} color={color} />,
+          
+        }}
+
+
+      />
+      <Tab.Screen name="Settings" component={Loading}
+        options={{
+          tabBarLabel: "Settings",
+          tabBarIcon: ({ color }) => <FontAwesome name="gear" size={30} color={color} />,
+        }} />
+    </Tab.Navigator>
+  );
+}
 const UserDrawerRoutes = ({ route }) => {
 
 
@@ -45,14 +113,17 @@ const DrawerRoutes = ({ route }) => {
 
 
   return (
-    <Drawer.Navigator initialRouteName="home" drawerContent={props => <DrawerContent {...props} />}
+    <Drawer.Navigator initialRouteName="myTab" drawerContent={props => <DrawerContent {...props} />}
       drawerStyle={{
         backgroundColor: 'white',
         width: 250,
       }}
 
     >
-      <Drawer.Screen name="home" component={HomeScreen} />
+      <Drawer.Screen name="myTab" component={MyTabs} />
+      {/* home screen Inside Tab Navigator */}
+
+      {/* <Drawer.Screen name="home" component={HomeScreen} /> */}
 
 
     </Drawer.Navigator>
@@ -75,6 +146,7 @@ export default function App() {
       <Stack.Screen name="signUpScreen" component={SignUpScreen} />
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
+      <Stack.Screen name='userDrawer' component={UserDrawerRoutes} initialParams={{ UserName: UserName }} />
 
     </>
   }
@@ -88,6 +160,7 @@ export default function App() {
       <Stack.Screen name="loginScreen" component={LoginScreen} />
       <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
       <Stack.Screen name='userHomeScreen' component={HomeUserScreen} initialParams={{ UserName: UserName }} />
+      <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
 
     </>
   }
@@ -153,7 +226,12 @@ export default function App() {
     <NavigationContainer >
 
 
-      <Stack.Navigator headerMode={"none"} initialRouteName="Loading" screenOptions={{ gestureEnabled: false }}>
+      <Stack.Navigator
+        headerMode={"none"}
+        initialRouteName="Loading"
+        screenOptions={{ gestureEnabled: false, gestureDirection: 'horizontal' }}
+        headerMode="none" //when we use navigation header animation chnge screen
+      >
         {
           initialLoading ?
             <Stack.Screen name='Loading' component={Loading} />

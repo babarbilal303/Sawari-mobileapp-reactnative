@@ -15,6 +15,7 @@ import { ThemeColor } from '../../../Constant';
 import SearchBar from '../../../Components/Search'
 import { getAllDetails } from '../../../Redux/Actions/VendorDetails'
 import { DETAILS } from '../../../Redux/Actions/ActionTypes';
+import SecondUserScreen from '../../../Components/SecondUserScreen/index.js'
 export default function HomeUserScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function HomeUserScreen() {
                     <SearchBar />
                 </Tab>
                 <Tab heading={<TabHeading style={{ backgroundColor: '#ffffff' }}><Icon name="home" style={{ color: ThemeColor.mainThmemColor }} /><Text style={{ color: ThemeColor.mainThmemColor }}>Home</Text></TabHeading>}>
-                    <Text>babar`=2</Text>
+                    <SecondUserScreen/>
                 </Tab>
                 <Tab heading={<TabHeading style={{ backgroundColor: '#ffffff' }}><Icon name="apps" style={{ color: ThemeColor.mainThmemColor }} /><Text style={{ color: ThemeColor.mainThmemColor }}>Camera</Text></TabHeading>}>
                     <Text>babar`=3</Text>
