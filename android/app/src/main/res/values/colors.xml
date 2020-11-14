@@ -6,7 +6,8 @@
 
     <color name="primary_dark">#fd4930</color>
            <!--   color for the app bar and other primary UI elements -->
-
+<!-- push notification library -->
+<color name="white">#FFF</color>
 
 <color name="status_bar_color">#fd4930</color>
 <!-- for default header -->

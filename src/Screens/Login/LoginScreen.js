@@ -20,8 +20,11 @@ function LoginScreen(props) {
 
     const [state, setstate] = useState({
         emailAddress: '',
-        password: ''
+        password: '',
     })
+    const [emailValid, SetemailValid] = useState(true)
+    const [passValid, SetpassValid] = useState(true)
+
     const [activityIndicator, SetactivityIndicator] = useState(false)
     const username = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -33,11 +36,11 @@ function LoginScreen(props) {
             const userRef = database().ref(`users/${data.user.uid}`);
             const onloadingListener = userRef.on('value', (snapshot) => {
                 dispatch(setUsername(snapshot._snapshot.value));
-            
+
                 // snapshot.forEach((childSnapshot) => {
                 //     dispatch(setUsername(childSnapshot));
                 // });
-            
+
                 snapshot._snapshot.value.Role == "vendor" ? navigation.navigate('Drawer') : navigation.navigate('userDrawer')
                 SetactivityIndicator(false);
             });
@@ -49,7 +52,42 @@ function LoginScreen(props) {
         })
 
     }
+    const validate = (text, type) => {
 
+
+        const emailREGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const passREGEX = /\d{6}/;
+
+        if (type == "email") {
+            setstate({ ...state, emailAddress: text })
+            if (emailREGEX.test(text)) {
+                // setstate({ ...state, emailValid: true });
+                SetemailValid(true)
+ 
+
+
+                // console.warn("email is correct")
+            } else {
+                SetemailValid(false)
+                // setstate({ ...state, emailValid: false });
+                // console.warn("email is inValid")
+
+            }
+
+        } else if (type == "password") {
+            setstate({ ...state, password: text })
+            if (passREGEX.test(text)) {
+                SetpassValid(true)
+               
+                // console.warn("pass is correct")
+            } else {
+                SetpassValid(false)
+                // console.warn("pass is inValid")
+
+            }
+
+        }
+    }
     console.log(username, "redux data")
     return (
         <View style={styles.container}>
@@ -72,9 +110,12 @@ function LoginScreen(props) {
 
 
                                 <Input
-                                    style={{ color: '#fa472f', fontSize: 20 }}
+                                    style={[styles.inputStyle, !emailValid ? styles.error : null]}
                                     value={state.emailAddress}
-                                    onChangeText={(email) => { setstate({ ...state, emailAddress: email }) }}
+                                    onChangeText={(text) => {
+
+                                        validate(text, "email")
+                                    }}
                                     autoCapitalize='none'
                                     placeholder="Email"
                                 />
@@ -83,11 +124,12 @@ function LoginScreen(props) {
                             <Item style={{ width: wp(80), marginBottom: 4, borderColor: ThemeColor.mainThmemColor }}>
 
                                 <Input secureTextEntry keyboardType={'number-pad'}
-                                    style={{ color: '#fa472f', fontSize: 20 }}
+                                    style={[styles.inputStyle, !passValid ? styles.error : null]}
                                     value={state.password}
-                                    onChangeText={(pass) => setstate({ ...state, password: pass })}
+                                    onChangeText={(pass) => validate(pass, "password")}
                                     autoCapitalize='none'
                                     placeholder="Password"
+                                    passValid
                                 />
                             </Item>
 
@@ -107,7 +149,7 @@ function LoginScreen(props) {
                         }
                     </TouchableOpacity>
 
-                   
+
 
 
                 </View>

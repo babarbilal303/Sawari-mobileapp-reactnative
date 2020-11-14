@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        // backgroundColor: '#242f35'
+        backgroundColor: '#ffffff'
     },
     disp: {
 
@@ -49,7 +49,18 @@ const styles = StyleSheet.create({
     },
     RigisterText: {
         height: hp(50),
-        alignItems:'center'
+        alignItems: 'center'
+    },
+    inputStyle: {
+        color: '#fa472f', fontSize: 20,
+    },
+    error:{
+        borderBottomColor:'red',
+        borderRightColor:'#ffffff',
+        borderLeftColor:'#ffffff',
+        borderTopColor:'#ffffff',
+   
+        borderWidth:2
     }
 
 
