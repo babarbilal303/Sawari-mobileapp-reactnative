@@ -1,5 +1,5 @@
 import { USER } from './ActionTypes'
-import {submitCarDetails_Cloud} from '../Actions/CarModal'
+import { submitCarDetails_Cloud } from '../Actions/CarModal'
 import { firebase, Auth, database } from "../../../Setup";
 export const setUsername = username => {
     console.log(username, "action redux")
@@ -88,7 +88,7 @@ export const signUpUser = (email, pasword, name, phoneNumber) => {
     })
 }
 
-export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role,Area) => {
+export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role, Area, ProfilePic) => {
     return new Promise(function (resolve, reject) {
 
         let key;
@@ -105,8 +105,8 @@ export const submitUserObj = (Id, Name, Email, Cnic, PhoneNuber, Role,Area) => {
             Cnic: Cnic,
             PhoneNuber: PhoneNuber,
             Role: Role,
-            Area
-
+            Area,
+            Profle_Pic: ProfilePic
         }
 
         console.log(dataToSave, "signup database userOBJ")

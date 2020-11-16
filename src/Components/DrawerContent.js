@@ -226,7 +226,7 @@ export function DrawerContent(props) {
                     </View>
 
                     <View >
-                        <Text > in </Text>
+                        <Text > By </Text>
                     </View>
 
                     <View>

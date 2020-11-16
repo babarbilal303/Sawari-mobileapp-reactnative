@@ -27,6 +27,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Auth } from '../.././../Setup';
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateCarDetialsVendor } from '../../Redux/Actions/user'
+import PushNotification from 'react-native-push-notification'
+
 export default function VendorModal(props) {
   // const [modalVisible, setModalVisible] = useState(false);
   const deviceWidth = Dimensions.get('window').width;
@@ -93,10 +95,20 @@ export default function VendorModal(props) {
 
     // return () => clearTimeout(timer);
   }, [CarDetailForEditData]);
+
+
+
+
+
+
   const UpdateCarDetail = (UpdateCarObj) => {
+
+
+
     console.log("update CAr value", UpdateCarObj);
     dispatch(UpdateCarDetialsVendor(UpdateCarObj));
     dispatch(setModalToggle(false));
+    LocalNotification(UpdateCarObj);
     props.buttonAnimation();
 
 
@@ -261,26 +273,26 @@ export default function VendorModal(props) {
 
 
       return (
-     
 
-          <Modal
-            animationIn="slideInRight"
-            isVisible={carModelVisiable}
-            onBackButtonPress={() => dispatch(setModalToggle(!carModelVisiable))}
-            deviceWidth={deviceWidth}
-            deviceHeight={deviceHeight}
-            onBackdropPress={() => dispatch(setModalToggle(false))}
-            animationInTiming={600}
-            animationOut={'slideOutRight'}
-          >
-            {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
 
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
+        <Modal
+          animationIn="slideInRight"
+          isVisible={carModelVisiable}
+          onBackButtonPress={() => dispatch(setModalToggle(!carModelVisiable))}
+          deviceWidth={deviceWidth}
+          deviceHeight={deviceHeight}
+          onBackdropPress={() => dispatch(setModalToggle(false))}
+          animationInTiming={600}
+          animationOut={'slideOutRight'}
+        >
+          {/* <Button title="Show modal" onPress={() => setModalVisible(!modalVisible)} /> */}
+
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
               <KeyboardAvoidingView
-          enabled={EnabledShift}
-          behavior={'position'}
-          style={{ flex: 1 }} >
+                enabled={EnabledShift}
+                behavior={'position'}
+                style={{ flex: 1 }} >
                 <Text style={styles.modalText}>
                   Please Enter Your Car Details:
                     </Text>
@@ -365,15 +377,43 @@ export default function VendorModal(props) {
                     />
                   </View>
                 </View>
-                </KeyboardAvoidingView>
+              </KeyboardAvoidingView>
 
-              </View>
-        
             </View>
-          </Modal>
-    
+
+          </View>
+        </Modal>
+
       );
     }
+  }
+
+
+
+
+  const LocalNotification = (data) => {
+    // console.log(data,"data local")
+    PushNotification.configure({
+      // (required) Called when a remote or local notification is opened or received
+      onNotification: function (notification) {
+          console.log('LOCAL NOTIFICATION ==>', notification)
+      },
+      popInitialNotification: true,
+      requestPermissions: true
+  })
+    PushNotification.localNotification({
+      autoCancel: true,
+      bigText:
+        'Get Your Own Drive',
+      subText: 'Updated Car Details',
+      title: 'Updated Car Details',
+      message: 'Expand me to see more',
+      vibrate: true,
+      vibration: 300,
+      playSound: true,
+      soundName: 'default',
+      // actions: '["Yes", "No"]'
+    })
   }
   return (
     <React.Fragment>

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList,TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import { ThemeColor } from '../../Constant';
 import { useDispatch, useSelector } from 'react-redux'
 import { ListItem, Avatar } from 'react-native-elements'
-
+import VendorDetailsModal from '../../Components/VendorDetailsModal'
 import { getAllDetails } from '../../Redux/Actions/VendorDetails'
+import { useNavigation } from '@react-navigation/native';
+
 export default function index() {
     const [search, setsearch] = useState('');
     const dispatch = useDispatch();
     const [Alldetails, setAlldetails] = useState([])
     const [ArrayHolder, setArrayHolder] = useState([])
+    const navigation = useNavigation();
+
     const alldetails = useSelector(state => state.VendorDetialsReducer);
     useEffect(() => {
         async function dispatchAndGetData() {
@@ -69,9 +73,14 @@ export default function index() {
                 data={Alldetails}
 
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={{backgroundColor:ThemeColor.mainThmemColor}} >
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("VendorDetailsScreen", {
+                            VendorDetails: item
+                        })}
+                        style={{ backgroundColor: ThemeColor.mainThmemColor }}
+                        activeOpacity={0.2}  >
                         <ListItem
-                            containerStyle={{ borderColor:'#000000',borderWidth:1 }}
+                            containerStyle={{ borderColor: '#000000', borderWidth: 1 }}
                         >
                             <ListItem.Content>
                                 <ListItem.Title>{item.Name}</ListItem.Title>
@@ -92,6 +101,7 @@ export default function index() {
             // ItemSeparatorComponent={this.renderSeparator}
             // ListHeaderComponent={this.renderHeader}
             />
+
         </>
 
     )

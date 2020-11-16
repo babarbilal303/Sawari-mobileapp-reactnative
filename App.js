@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Platform } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import WelcomeScreen from './src/Screens/WelcomeScreen/WelcomeScreen'
 import GetStartedScreen from './src/Screens/GetStarted/GetStartedScreen'
@@ -10,9 +10,9 @@ import SignUpScreen from './src/Screens/Signup/SignUp'
 import LoginScreen from './src/Screens/Login/LoginScreen'
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import Loading from './src/Components/Loading/Loading'
-import VendorModal from './src/Components/VendorModal/index'
 import MapScreen from './src/Screens/Map';
 import HomeUserScreen from './src/Screens/ClientScreens/HomeUserScreen/HomeUserScreen'
+import VendorDetailsScreen from './src/Screens/ClientScreens/VendorDetailsScreen/VendorDetailsModal'
 import { Auth } from './Setup'
 import { useDispatch, useSelector } from 'react-redux'
 import { DrawerContent } from './src/Components/DrawerContent'
@@ -76,7 +76,7 @@ const MyTabs = ({ route }) => {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => <FontAwesome name="home" size={30} color={color} />,
-          
+
         }}
 
 
@@ -129,6 +129,19 @@ const DrawerRoutes = ({ route }) => {
     </Drawer.Navigator>
   )
 }
+// ANIMATION STACk
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 50,
+    mass: 3,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
 
 export default function App() {
   const [loggenIn, setLoggedIn] = useState(false)
@@ -161,6 +174,7 @@ export default function App() {
       <Stack.Screen name="map" component={MapScreen} initialParams={{ UserName: UserName }} />
       <Stack.Screen name='userHomeScreen' component={HomeUserScreen} initialParams={{ UserName: UserName }} />
       <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
+      <Stack.Screen name='VendorDetailsScreen' component={VendorDetailsScreen} initialParams={{ UserName: UserName }} />
 
     </>
   }
@@ -175,6 +189,7 @@ export default function App() {
       <Stack.Screen name='Drawer' component={DrawerRoutes} initialParams={{ UserName: UserName }} />
       <Stack.Screen name='userHomeScreen' component={HomeUserScreen} initialParams={{ UserName: UserName }} />
       <Stack.Screen name='userDrawer' component={UserDrawerRoutes} initialParams={{ UserName: UserName }} />
+      <Stack.Screen name='VendorDetailsScreen' component={VendorDetailsScreen} initialParams={{ UserName: UserName }} />
 
 
 
@@ -229,7 +244,17 @@ export default function App() {
       <Stack.Navigator
         headerMode={"none"}
         initialRouteName="Loading"
-        screenOptions={{ gestureEnabled: false, gestureDirection: 'horizontal' }}
+        screenOptions={{
+          gestureEnabled: true, gestureDirection: 'horizontal',
+          ...TransitionPresets.SlideFromRightIOS,  //builtn stack animations
+
+          transitionSpec: {
+            open: config,
+            close: config //confg is defined above App function it is for animation customiztion 
+          }
+          // ...CardStyleInterpolators.forScaleFromCenterAndroid //builtn stack animations
+
+        }}
         headerMode="none" //when we use navigation header animation chnge screen
       >
         {

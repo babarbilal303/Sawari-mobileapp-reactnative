@@ -7,7 +7,9 @@ import {
   ImageBackground,
   FlatList,
   Animated,
-  PanResponder
+  PanResponder,
+  BackHandler,
+  Alert
 } from 'react-native';
 import HeaderCustom from '../../Components/Header';
 import { ThemeColor } from '../../Constant/index';
@@ -183,6 +185,37 @@ export default function HomeScreen() {
     updateCARDetailsInREDUX();
 
   }, [carDetials]);
+
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+
+    }
+  }, []);
+
+
+  const handleBackButton = () => {
+    Alert.alert(
+      'Exit App',
+      'Are you sure you want to exit?', [{
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'
+      }, {
+        text: 'Yes',
+        onPress: () => BackHandler.exitApp()
+      },], {
+      cancelable: false
+    }
+    )
+    return true;
+  }
+
+
+
 
   const updateCARDetailsInREDUX = () => {
     console.log("cardetails local state", carDetialsReduxState)
