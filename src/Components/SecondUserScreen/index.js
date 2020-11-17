@@ -40,9 +40,10 @@ export default function index() {
 
   const animateBadge = () => {
 
-    BadgeScale.setValue(0);
 
-    // setBadgeScale(new Animated.Value(0));
+
+    // setBadgeScale(new Animated.Value(0));//incorrect
+    BadgeScale.setValue(0);//correct
     setTextValue(TextValue => TextValue + 1);
     Animated.timing(BadgeScale, {
       toValue: 1,
