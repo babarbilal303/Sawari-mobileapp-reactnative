@@ -17,6 +17,8 @@
    <meta-data
      android:name="com.google.android.geo.API_KEY"
      android:value="AIzaSyAWoAuKrWK17CtspnnhuVGvO4F2uaj7Qkk"/>
+ <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
 
    <!-- You will also only need to add this uses-library tag -->
    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
@@ -52,8 +54,8 @@
  
   <!-- push notificaiton icon -->
 
-<meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@drawable/ic_notification" />
+<!-- <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_notification" /> -->
 
 
         <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />

@@ -52,6 +52,7 @@
 		6212AC08A4FB4E83917E13F0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9DC5963661444DB8266E117 /* SimpleLineIcons.ttf */; };
 		C9AB283DACC54571A44667CD /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 516A2BB82F1041E9B3132E3F /* Zocial.ttf */; };
 		E6A0D181F7414E3F961B06D7 /* CrashLandingBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D72A6F17A6224CD2BB09F247 /* CrashLandingBB.ttf */; };
+		6D39EAA98AD74BEC9C804CD9 /* neuropolitical rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D47D6E75725E4C59BD539F65 /* neuropolitical rg.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		C9DC5963661444DB8266E117 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		516A2BB82F1041E9B3132E3F /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D72A6F17A6224CD2BB09F247 /* CrashLandingBB.ttf */ = {isa = PBXFileReference; name = "CrashLandingBB.ttf"; path = "../fonts/CrashLandingBB.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D47D6E75725E4C59BD539F65 /* neuropolitical rg.ttf */ = {isa = PBXFileReference; name = "neuropolitical rg.ttf"; path = "../fonts/neuropolitical rg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				C9DC5963661444DB8266E117 /* SimpleLineIcons.ttf */,
 				516A2BB82F1041E9B3132E3F /* Zocial.ttf */,
 				D72A6F17A6224CD2BB09F247 /* CrashLandingBB.ttf */,
+				D47D6E75725E4C59BD539F65 /* neuropolitical rg.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				6212AC08A4FB4E83917E13F0 /* SimpleLineIcons.ttf in Resources */,
 				C9AB283DACC54571A44667CD /* Zocial.ttf in Resources */,
 				E6A0D181F7414E3F961B06D7 /* CrashLandingBB.ttf in Resources */,
+				6D39EAA98AD74BEC9C804CD9 /* neuropolitical rg.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

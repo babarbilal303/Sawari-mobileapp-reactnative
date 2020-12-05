@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "299891495708-oti0ru6n48lrlpdpe903rfd8mpoe080c.apps.googleusercontent.com",
+          "client_id": "299891495708-ecp12cooionr6raajljkou8hf0fja758.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sawari",
-            "certificate_hash": "4516b79ee5a00ad501211083e5b9e753b0aff64b"
+            "certificate_hash": "115bdb9d222c95b71138b16e84c9bce7eec112e8"
           }
         },
         {
